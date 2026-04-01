@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTEX ANUNCIOS | Publicidad Profesional</title>
+    <style>
+        /* Estilos Generales */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { line-height: 1.6; color: #333; scroll-behavior: smooth; }
+        header { background: #222; color: #fff; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-around; align-items: center; max-width: 1200px; margin: auto; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        
+        section { padding: 80px 20px; max-width: 1200px; margin: auto; }
+        h2 { text-align: center; margin-bottom: 40px; color: #4622e6; }
+
+        /* Inicio */
+        #inicio { text-align: center; background: #f4f4f4; padding: 100px 20px; }
+
+        /* Productos */
+    .grid-productos { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        gap: 30px; 
+        padding: 20px;
+    }
+    .producto { 
+        background: #fff;
+        border: 1px solid #eee; 
+        padding: 0; 
+        border-radius: 12px; 
+        text-align: center; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .producto:hover { 
+        transform: translateY(-10px); 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+    }
+    .producto img { 
+        width: 100%; 
+        height: 250px; 
+        object-fit: cover; 
+    }
+    .info-prod { padding: 20px; flex-grow: 1; }
+    .info-prod h3 { color: #2250e6; margin-bottom: 10px; font-size: 1.4rem; }
+    .info-prod p { font-size: 0.95rem; color: #666; margin-bottom: 15px; }
+    .btn-ver-mas { 
+        display: inline-block;
+        background: #e67e22; 
+        color: white; 
+        padding: 10px 25px; 
+        border-radius: 5px; 
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+    .btn-ver-mas:hover { background: #d35400; }
+    .producto-link { text-decoration: none; color: inherit; }
+
+
+        /* Cotizador */
+        .cotizador-container { background: #2c3e50; color: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; }
+        .cotizador-container input, .cotizador-container select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        .btn-cotizar { background: #e67e22; color: white; border: none; padding: 10px 20px; width: 100%; cursor: pointer; font-size: 1.1rem; }
+        #resultado { margin-top: 20px; font-size: 1.2rem; text-align: center; font-weight: bold; }
+
+        /* Contacto y Ubicación */
+        .info-contacto { text-align: center; background: #eee; padding: 40px; border-radius: 10px; }
+        footer { background: #222; color: white; text-align: center; padding: 20px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<!-- Reemplaza todo el bloque <header> por este -->
+    <header style="background: #002d5a; border-bottom: 3px solid #e67e22; padding: 10px 0;">
+        <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
+            
+            <!-- Contenedor del Logo -->
+            <a href="#inicio" style="text-decoration: none;">
+                <img src="CORTEXLOGO.jpg" alt="CORTEX Anuncios" style="height: 80px; width: auto; display: block;">
+            </a>
+    
+            <!-- Menú de Navegación -->
+            <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
+                <li style="margin: 0 15px;"><a href="#inicio" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Inicio</a></li>
+                <li style="margin: 0 15px;"><a href="#productos" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Productos</a></li>
+                <li style="margin: 0 15px;"><a href="#nosotros" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Nosotros</a></li>
+                <li style="margin: 0 15px;"><a href="#cotizador" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Cotizador</a></li>
+                <li style="margin: 0 15px;"><a href="#contacto" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="inicio">
+        <h1>Bienvenidos a CORTEX ANUNCIOS</h1>
+        <p>Expertos en soluciones publicitarias de alto impacto.</p>
+    </section>
+
+<section id="productos">
+    <h2>Nuestros Productos</h2>
+    <div class="grid-productos">
+        
+        <!-- Product 1: Letreros -->
+        <a href="LETREROSINTERIORES.html" class="producto-link">
+            <div class="producto">
+                <img src="ACRILICOBLANCOANUNCIO.jpg" alt="Letrero Para Interiores">
+                <h3>Letreros Para El Interior De Tu Negocio</h3>
+                <p>Anuncio Interior</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+        <!-- Product 1: Letreros -->
+        <a href="LETREROSEXTERIORES.html" class="producto-link">
+            <div class="producto">
+                <img src="ANUNCIOEXTERIOR.jpg" alt="Letrero Luminoso Para Exteriores">
+                <h3>Letreros Luminosos</h3>
+                <p>Anuncios en LED de bajo consumo y alta visibilidad.</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+
+        <!-- Product 2: Lonas -->
+        <a href="LONAS.html" class="producto-link">
+            <div class="producto">
+                <img src="LONAEXTERIOR.jpg" alt="Lonas">
+                <h3>Lonas Publicitarias</h3>
+                <p>Impresión en gran formato con colores vibrantes.</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+
+        <!-- Product 3: Vinilos -->
+        <a href="VINILES.html" class="producto-link">
+            <div class="producto">
+                <img src="VINILCORTE.jpg" alt="Vinilos">
+                <h3>Vinilos de Corte</h3>
+                <p>Decoración de cristales, muros y vehículos.</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+        
+        <!-- Product 3: NEONES -->
+        <a href="NEONES.html" class="producto-link">
+            <div class="producto">
+                <img src="NEON.jpg" alt="Vinilos">
+                <h3>LETREROS NEON</h3>
+                <p>Decoración de cristales, muros y vehículos.</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+        
+        <!-- Product 4: Numeros 3D -->
+        <a href="NUMEROSRD.html" class="producto-link">
+            <div class="producto">
+                <img src="NUMERO3Dnegromate.jpg" alt="Numeros Para Domicilio">
+                <h3>Números 3D</h3>
+                <p>Números residenciales elegantes y modernos.</p>
+                <span class="btn-ver-mas">Cotizar Ahora</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+    <section id="nosotros">
+        <h2>Sobre Nosotros</h2>
+        <p style="text-align: center;">En <strong>Cortex Anuncios</strong>, nos dedicamos a transformar la imagen de tu empresa. Con años de experiencia en el sector publicitario, combinamos tecnología de punta con creatividad para que tu marca destaque.</p>
+    </section>
+
+    <section id="cotizador">
+        <h2>Cotizador Rápido</h2>
+        <div class="cotizador-container">
+            <label>Selecciona un Producto:</label>
+            <select id="item">
+                <option value="500">Lona Publicitaria ($500 m2)</option>
+                <option value="1500">Letrero Luminoso ($1500 m2)</option>
+                <option value="300">Vinil Decorativo ($300 m2)</option>
+            </select>
+            <label>Metros Cuadrados (m²):</label>
+            <input type="number" id="cantidad" placeholder="Ej: 5" min="1">
+            <button class="btn-cotizar" onclick="calcular()">Obtener Cotización</button>
+            <div id="resultado"></div>
+        </div>
+    </section>
+
+<section id="contacto">
+    <h2>Contacto y Ubicación</h2>
+    <div class="info-contacto">
+        <p>📍 <strong>Ubicación:</strong> Bodegas LDI BODEGA B14, 81217 Los Mochis, Sin.</p>
+        <p>📞 <strong>WhatsApp:</strong> +52 668 149 0233</p>
+        <p>📧 <strong>Email:</strong> contacto@cortexanuncios.com</p>
+        <div style="margin-top: 20px;">
+            <!-- Este es el enlace de inserción (EMBED) que sí permite Google -->
+            <iframe 
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1601.8358985430632!2d-108.961447426727!3d25.817192538332176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ba29252a64aba5%3A0xf6abe738d091059c!2sLDI%20Los%20Mochis!5e0!3m2!1sen!2smx!4v1775012643019!5m2!1sen!2smx" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+            </iframe>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <p>&copy; 2023 CORTEX ANUNCIOS. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function calcular() {
+            const precioBase = document.getElementById('item').value;
+            const metros = document.getElementById('cantidad').value;
+            const resultado = document.getElementById('resultado');
+
+            if (metros > 0) {
+                const total = precioBase * metros;
+                resultado.innerHTML = "Total Estimado: $" + total.toLocaleString() + " MXN";
+                resultado.style.color = "#2ecc71";
+            } else {
+                resultado.innerHTML = "Por favor, ingresa una cantidad válida.";
+                resultado.style.color = "#e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>

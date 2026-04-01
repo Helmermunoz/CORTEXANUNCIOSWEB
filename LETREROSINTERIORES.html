@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Detallado | CORTEX</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f9f9f9; padding: 20px; }
+        .header-catalogo { text-align: center; padding: 40px 0; background: #222; color: white; margin-bottom: 30px; border-radius: 10px; }
+        .btn-regresar { display: inline-block; margin-bottom: 20px; color: #2250e6; text-decoration: none; font-weight: bold; }
+        
+        .galeria-extendida { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+
+        .item-catalogo { 
+    background: white; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    /* Cambia 'shadow' por 'box-shadow' */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    border: 1px solid #eee; 
+    transition: transform 0.3s ease; /* Tip: agrega esto para que se mueva suave */
+}
+
+/* Tip extra: efecto al pasar el mouse */
+.item-catalogo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}        .item-catalogo img { width: 100%; height: 250px; object-fit: cover; }
+        .info-item { padding: 15px; }
+        .info-item h4 { color: #2250e6; margin-bottom: 5px; }
+        .info-item p { font-size: 0.9rem; color: #666; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="btn-regresar">← Volver al Inicio</a>
+
+    <div class="header-catalogo">
+        <h1>Catálogo de Trabajos Realizados</h1>
+        <p>Explora nuestra calidad en cada proyecto</p>
+    </div>
+
+    <div class="galeria-extendida">
+        
+        <!-- AQUÍ ES DONDE IRÁS AGREGANDO PRODUCTOS NUEVOS MANUALMENTE -->
+        
+        <!-- Producto Nuevo 1 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR1.jpg" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Letrero Tipo Caja de Luz</h4>
+                <p>Cliente: Negocio Local. Material: Acrílico y LED.</p>
+            </div>
+        </div>
+
+        <!-- Producto Nuevo 2 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR2.jpg" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+        <!-- Producto Nuevo 3 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR3.jpg" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+        <!-- Producto Nuevo 4 -->
+        <div class="item-catalogo">
+            <img src="IMAGENINTERIOR4.png" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+        <!-- Producto Nuevo 5 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR5.png" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+        <!-- Producto Nuevo 6 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR6.png" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+        <!-- Producto Nuevo 7 -->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR7.jpg" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Rotulación de Flotilla</h4>
+                <p>Vinil de alta resistencia para exteriores.</p>
+            </div>
+        </div>
+
+        <!-- Para agregar más, solo copia y pega el bloque <div class="item-catalogo">...</div> abajo -->
+
+    </div>
+
+</body>
+</html>
