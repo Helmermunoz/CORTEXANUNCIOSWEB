@@ -16,32 +16,111 @@
         
         section { padding: 80px 20px; max-width: 1200px; margin: auto; }
         h2 { text-align: center; margin-bottom: 40px; color: #4622e6; }
+        /* Configuración del Slider de Inicio */
+        .hero-slider {
+            position: relative;
+            height: 80vh; /* Ocupa el 80% de la pantalla */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        .slides {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fadeSlider 15s infinite; /* 15 segundos total para el ciclo */
+        }
+
+        /* Tiempos de la animación para 3 imágenes */
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 5s; }
+        .slide:nth-child(3) { animation-delay: 10s; }
+
+        @keyframes fadeSlider {
+            0% { opacity: 0; }
+            10% { opacity: 1; } /* Aparece */
+            33% { opacity: 1; } 
+            43% { opacity: 0; } /* Desaparece */
+            100% { opacity: 0; }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Oscurece la foto un 50% */
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .btn-cta {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #4622e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-cta:hover {
+            background: white;
+            color: #4622e6;
+            transform: scale(1.05);
+        }
 
             /* Estilos Responsivos */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column; /* Pone el logo sobre el menú */
-        padding: 10px;
-    }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column; /* Pone el logo sobre el menú */
+                padding: 10px;
+            }
 
-    nav ul {
-        flex-direction: column; /* Lista vertical */
-        align-items: center;
-        width: 100%;
-    }
+            nav ul {
+                flex-direction: column; /* Lista vertical */
+                align-items: center;
+                width: 100%;
+            }
 
-    nav ul li {
-        margin: 10px 0; /* Espacio vertical entre enlaces */
-    }
+            nav ul li {
+                margin: 10px 0; /* Espacio vertical entre enlaces */
+            }
 
-    section {
-        padding: 40px 15px; /* Menos espacio en los lados */
-    }
+            section {
+                padding: 40px 15px; /* Menos espacio en los lados */
+            }
 
-    h2 {
-        font-size: 1.5rem; /* Título un poco más pequeño */
-    }
-}
+            h2 {
+                font-size: 1.5rem; /* Título un poco más pequeño */
+            }
+        }
 
         /* Inicio */
         #inicio { text-align: center; background: #f4f4f4; padding: 100px 20px; }
@@ -122,10 +201,27 @@
             </ul>
         </nav>
     </header>
-    <section id="inicio">
-        <h1>Bienvenidos a CORTEX ANUNCIOS</h1>
-        <p>Expertos en soluciones publicitarias de alto impacto.</p>
-    </section>
+            <section id="inicio" class="hero-slider">
+                <!-- Capa oscura para que el texto resalte -->
+                <div class="overlay"></div>
+                
+                <!-- Contenedor de imágenes -->
+                <div class="slides">
+                    <div class="slide" style="background-image: url('animacion1.jpg');"></div>
+                    <div class="slide" style="background-image: url('animacion2.jpg');"></div>
+                    <div class="slide" style="background-image: url('animacion3.jpg');"></div>
+                </div>
+
+                <!-- Contenido fijo -->
+                <div class="hero-content">
+                    <h1>Bienvenidos a CORTEX ANUNCIOS</h1>
+                    <p>Expertos en soluciones publicitarias de alto impacto y señalética premium.</p>
+                    <a href="#contacto" class="btn-cta">Cotizar mi Proyecto</a>
+                </div>
+
+            
+            </section>
+
 
 <section id="productos">
     <h2>Nuestros Productos</h2>
