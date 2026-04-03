@@ -2,41 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- 1. Forzamos el ajuste de pantalla -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CORTEX ANUNCIOS | Publicidad Profesional</title>
     <style>
-        /* Estilos Generales */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { line-height: 1.6; color: #333; scroll-behavior: smooth; padding-top: 80px;}
-        header { background: #222; color: #fff; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-around; align-items: center; max-width: 1200px; margin: auto; }
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin: 0 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
-        
-        
-        section { padding: 80px 20px; max-width: 1200px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 40px; color: #4622e6; }
-        /*styles botton wapsasp*/
-        @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        /* 2. Evitamos que cualquier cosa se salga por la derecha (Causa principal del desajuste) */
+        html, body { 
+            overflow-x: hidden; 
+            width: 100%;
+            position: relative;
         }
 
-
-                
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        /* Configuración del Slider de Inicio */
+        body { line-height: 1.6; color: #333; scroll-behavior: smooth; padding-top: 80px;}
+
+        /* 3. Cambiamos sticky por fixed para mayor estabilidad en móvil */
+        header { 
+            background: linear-gradient(90deg, #003366 0%, #001a3d 100%); 
+            border-bottom: 3px solid #e67e22;
+            color: #fff; 
+            padding: 10px 0; 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            z-index: 1000; 
+            height: 200px;
+        }
+
+        nav { 
+            display: flex; 
+            justify-content: space-between; /* Mejor que space-around para logos */
+            align-items: center; 
+            max-width: 1200px; 
+            margin: auto; 
+            padding: 0 15px; /* Margen interno para que no pegue a los bordes */
+        }
+
+        /* Ajuste para que el menú no se amontone en celulares pequeños */
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin: 0 10px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+        
+        section { padding: 40px 15px; max-width: 1200px; margin: auto; }
+        h2 { text-align: center; margin-bottom: 30px; color: #4622e6; }
+
+        /* Botón WhatsApp */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Slider Responsivo */
         .hero-slider {
             position: relative;
-            height: 80vh; /* Ocupa el 80% de la pantalla */
+            height: 60vh; /* Bajamos de 80vh a 60vh en móvil para que no se vea gigante */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             overflow: hidden;
             color: white;
+            width: 100%;
         }
 
         .slides {
