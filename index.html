@@ -16,6 +16,16 @@
         
         section { padding: 80px 20px; max-width: 1200px; margin: auto; }
         h2 { text-align: center; margin-bottom: 40px; color: #4622e6; }
+        /*styles botton wapsasp*/
+        @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+
+                
+        
         /* Configuración del Slider de Inicio */
         .hero-slider {
             position: relative;
@@ -122,6 +132,7 @@
             }
         }
 
+
         /* Inicio */
         #inicio { text-align: center; background: #f4f4f4; padding: 100px 20px; }
 
@@ -222,7 +233,22 @@
             
             </section>
 
+            <!-- Container for Button and Label -->
+            <div style="position:fixed; bottom:40px; right:40px; display:flex; align-items:center; z-index:100; font-family: Arial, sans-serif;">
+            
+            <!-- Text Label -->
+            <span style="background-color: white; color: #333; padding: 8px 15px; border-radius: 20px; margin-right: 10px; box-shadow: 0px 2px 5px rgba(0,0,0,0.2); font-weight: bold; font-size: 14px;">
+                Contáctanos
+            </span>
 
+            <!-- Pulsing WhatsApp Button -->
+            <a href="https://wa.me" 
+                target="_blank" 
+                style="width:60px; height:60px; background-color:#25d366; color:#FFF; border-radius:50px; text-align:center; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;">
+                
+                <img src="BOTTONWP.jpg" alt="WhatsApp" style="width:35px; height:35px;">
+            </a>
+            </div>
 <section id="productos">
     <h2>Nuestros ProductosS</h2>
     <div class="grid-productos">
