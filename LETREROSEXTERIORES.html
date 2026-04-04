@@ -34,6 +34,11 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
         .item-catalogo img { width: 100%; height: 250px; object-fit: cover; }
+        .item-catalogo img.alejar {
+            padding: .2px; /* Ajusta el número para alejarla más o menos */
+            background-color: #f8f9fa; /* Un color de fondo suave ayuda al efecto */
+            object-fit: contain; /* Importante para que no se corte */
+        }
         .info-item { padding: 15px; }
         .info-item h4 { color: #2250e6; margin-bottom: 5px; }
         .info-item p { font-size: 0.9rem; color: #666; }
@@ -43,10 +48,12 @@
 
     <a href="index.html" class="btn-regresar">← Volver al Inicio</a>
 
-    <div class="header-catalogo">
-        <h1>Catálogo de Trabajos Realizados</h1>
-        <p>Explora nuestra calidad en cada proyecto</p>
-    </div>
+<div class="header-catalogo">
+    <span class="badge">NUESTRO PORTAFOLIO</span>
+    <h1>Proyectos en Perspectiva</h1>
+    <div class="divider"></div>
+    <p>Calidad artesanal y precisión técnica en cada instalación 3D.</p>
+</div>
 
     <div class="galeria-extendida">
         
@@ -56,8 +63,8 @@
         <div class="item-catalogo">
             <img src="LETEROEXTERIOR1.jpg" alt="Trabajo Realizado">
             <div class="info-item">
-                <h4>Letrero Tipo Caja de Luz</h4>
-                <p>Cliente: Negocio Local. Material: Acrílico y LED.</p>
+                <h4>Letras corpóreas con acabado cromado</h4>
+                <p>Un estilo sofisticado que captura la luz y refleja la exclusividad de tu marca.</p>
             </div>
         </div>
 
@@ -65,8 +72,8 @@
         <div class="item-catalogo">
             <img src="LETREROEXTERIOR2.jpg" alt="Trabajo Realizado">
             <div class="info-item">
-                <h4>Rotulación de Flotilla</h4>
-                <p>Vinil de alta resistencia para exteriores.</p>
+                <h4>Letrero Eorado Espejo Enfoque en Fachada e Institucional</h4>
+                <p>Instalación de señalización exterior con letras metálicas en acabado dorado. Diseño robusto y elegante sobre fachada cerámica, ideal para instituciones que buscan una imagen profesional y duradera.</p>
             </div>
         </div>
         <!-- Producto Nuevo 3-->
@@ -74,7 +81,7 @@
             <img src="LETREROEXTERIOR4.jpg" alt="Trabajo Realizado">
             <div class="info-item">
                 <h4>Letrero Tipo Caja de Luz</h4>
-                <p>Cliente: Negocio Local. Material: Acrílico y LED.</p>
+                <p>Cajón de Luz Backlit de Alta Intensidad Máxima visibilidad para tu marca día y noche. </p>
             </div>
         </div>
 
@@ -82,8 +89,8 @@
         <div class="item-catalogo">
             <img src="LETEROEXTERIOR6.jpg" alt="Trabajo Realizado">
             <div class="info-item">
-                <h4>Rotulación de Flotilla</h4>
-                <p>Vinil de alta resistencia para exteriores.</p>
+                <h4>Letrero Escolar</h4>
+                <p>Fabricación e instalación de señalización institucional resistente a la intemperie. </p>
             </div>
         </div>
  
@@ -93,12 +100,27 @@
         <div class="item-catalogo">
             <img src="LETREROEXTERIOR5.jpg" alt="Trabajo Realizado">
             <div class="info-item">
-                <h4>Rotulación de Flotilla</h4>
-                <p>Vinil de alta resistencia para exteriores.</p>
+                <h4> Letras 3D luminosas</h4>
+                <p>Letras volumétricas en acrílico blanco con sistema LED interno para un brillo intenso y uniforme.</p>
             </div>
         </div>
-        <!-- Para agregar más, solo copia y pega el bloque <div class="item-catalogo">...</div> abajo -->
-
+        <!-- Producto Nuevo 4 -->
+        <div class="item-catalogo">
+            <img src="LETREROEXTERIOR7.jpg" class="alejar" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Fabricación e instalación de letras 3D</h4>
+                <p>Renovación de fachada con letras 3D y rotulación comercial. </p>
+            </div>
+        </div>
+ 
+        <div class="item-catalogo">
+            <img src="LETREROEXTERIOR8.jpg" class="alejar" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Placas Corporativas en Panel cepillado</h4>
+                <p>Un acabado premium que proyecta profesionalismo Rotulado con vinil de corte de alta duracion</p>
+            </div>
+        </div>
+ 
     </div>
 
 </body>
