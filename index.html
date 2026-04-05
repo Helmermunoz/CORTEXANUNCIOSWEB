@@ -46,8 +46,13 @@
         nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
         
         section { padding: 40px 15px; max-width: 1200px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 30px; color: #4622e6; }
-
+        h2 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: #003067; /* Azul Marino Cortex */
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
         /* Botón WhatsApp */
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
@@ -122,28 +127,25 @@
             display: inline-block;
             margin-top: 20px;
             padding: 12px 30px;
-            background: #4622e6;
+            background: #e67e22; /* Naranja Cortex */
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
             transition: 0.3s;
         }
-
         .btn-cta:hover {
             background: white;
-            color: #4622e6;
+            color: #e67e22;
             transform: scale(1.05);
         }
 
-        /* Estilos del botón hamburguesa (oculto por defecto en PC) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
+        /* Títulos de los productos (Ahora en Azul Marino) */
+        .info-prod h3 { 
+            color: #003067; /* Azul Marino Cortex */
+            margin-bottom: 10px; 
+            font-size: 1.4rem; 
         }
-
         .menu-toggle .bar {
             width: 30px;
             height: 4px;
@@ -260,7 +262,6 @@
 
 
 
-        h2 { text-align: center; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
         
         .form-group { margin-bottom: 20px; }
         
@@ -317,7 +318,7 @@
                 <div class="hero-content">
                     <h1>Bienvenidos a CORTEX ANUNCIOS</h1>
                     <p>Expertos en soluciones publicitarias de alto impacto y señalética premium.</p>
-                    <a href="#contacto" class="btn-cta">Cotizar mi Proyecto</a>
+                    <a href="Cotizador.html" class="btn-cta">Cotizar mi Proyecto</a>
                 </div>
 
             
@@ -423,7 +424,7 @@
 </section>
 
     <footer>
-        <p>&copy; 2023 CORTEX ANUNCIOS. Todos los derechos reservados.</p>
+        <p>&copy; 2026 CORTEX ANUNCIOS. Todos los derechos reservados.</p>
     </footer>
 <script>
     const menu = document.querySelector('#mobile-menu');
