@@ -136,31 +136,77 @@
             transform: scale(1.05);
         }
 
-            /* Estilos Responsivos */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column; /* Pone el logo sobre el menú */
-                padding: 10px;
-            }
+/* Estilos del botón hamburguesa (oculto por defecto en PC) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
 
-            nav ul {
-                flex-direction: column; /* Lista vertical */
-                align-items: center;
-                width: 100%;
-            }
+.menu-toggle .bar {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
 
-            nav ul li {
-                margin: 10px 0; /* Espacio vertical entre enlaces */
-            }
+/* Ajustes Responsivos */
+@media (max-width: 768px) {
+    header { height: auto; min-height: 80px; } /* Ajuste de altura */
+    /* El contenedor del menú */
+    #nav-list {
+        display: flex;
+        flex-direction: column; /* Apila los botones verticalmente */
+        position: fixed;        /* Se queda fijo sobre el contenido */
+        left: -100%;            /* Lo esconde fuera de la pantalla a la izquierda */
+        top: 150px;             /* Ajusta esto según la altura de tu header */
+        background-color: #001a3d; /* El azul oscuro de Cortex */
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.3s ease-in-out; /* Animación suave al abrir */
+        z-index: 999;
+        padding-top: 20px;
+    }
+    .menu-toggle {
+        display: flex; /* Aparece en móvil */
+        z-index: 1001;
+    }
 
-            section {
-                padding: 40px 15px; /* Menos espacio en los lados */
-            }
+    nav ul {
+        position: fixed;
+        left: -100%; /* Escondido a la izquierda */
+        top: 80px;
+        flex-direction: column;
+        background: #001a3d;
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.4s;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
 
-            h2 {
-                font-size: 1.5rem; /* Título un poco más pequeño */
-            }
-        }
+    /* Cuando el menú tiene la clase 'active' se muestra */
+    nav ul.active {
+        left: 0;
+    }
+
+    nav ul li {
+        margin: 25px 0;
+    }
+
+    nav ul li a {
+        font-size: 1.5rem; /* Letra más grande para tocar con el dedo */
+    }
+
+    /* Animación de la hamburguesa a "X" */
+    .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+}
+        
 
 
         /* Inicio */
@@ -212,37 +258,49 @@
     .producto-link { text-decoration: none; color: inherit; }
 
 
-        /* Cotizador */
-        .cotizador-container { background: #2c3e50; color: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; }
-        .cotizador-container input, .cotizador-container select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-        .btn-cotizar { background: #e67e22; color: white; border: none; padding: 10px 20px; width: 100%; cursor: pointer; font-size: 1.1rem; }
-        #resultado { margin-top: 20px; font-size: 1.2rem; text-align: center; font-weight: bold; }
 
-        /* Contacto y Ubicación */
-        .info-contacto { text-align: center; background: #eee; padding: 40px; border-radius: 10px; }
-        footer { background: #222; color: white; text-align: center; padding: 20px; margin-top: 20px; }
+
+        h2 { text-align: center; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
+        
+        .form-group { margin-bottom: 20px; }
+        
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #aaa; }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #252a33;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
     </style>
 </head>
 <body>
 
 
             <header style="background: linear-gradient(to right, #003067 0%, #001a3d 100%); border-bottom: 3px solid #e67e22; padding: 10px 0;">
-            <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
-            
-            <!-- Contenedor del Logo -->
-            <a href="#inicio" style="text-decoration: none;">
-                <img src="CORTEXLOGO.jpg" alt="CORTEX Anuncios" style="height: 80px; width: auto; display: block;">
-            </a>
-    
-            <!-- Menú de Navegación -->
-            <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
-                <li style="margin: 0 15px;"><a href="#inicio" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Inicio</a></li>
-                <li style="margin: 0 15px;"><a href="#productos" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Productos</a></li>
-                <li style="margin: 0 15px;"><a href="#nosotros" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Nosotros</a></li>
-                <li style="margin: 0 15px;"><a href="#cotizador" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Cotizador</a></li>
-                <li style="margin: 0 15px;"><a href="#contacto" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Contacto</a></li>
-            </ul>
-        </nav>
+            <nav >
+                <a href="#inicio">
+                    <img src="CORTEXLOGO.jpg" alt="CORTEX Anuncios" style="height: 80px;">
+                </a>
+
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+
+                <ul id="nav-list">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
     </header>
             <section id="inicio" class="hero-slider">
                 <!-- Capa oscura para que el texto resalte -->
@@ -351,21 +409,6 @@
         <p style="text-align: center;">En <strong>Cortex Anuncios</strong>, nos dedicamos a transformar la imagen de tu empresa. Con años de experiencia en el sector publicitario, combinamos tecnología de punta con creatividad para que tu marca destaque.</p>
     </section>
 
-    <section id="cotizador">
-        <h2>Cotizador Rápido</h2>
-        <div class="cotizador-container">
-            <label>Selecciona un Producto:</label>
-            <select id="item">
-                <option value="500">Lona Publicitaria ($500 m2)</option>
-                <option value="1500">Letrero Luminoso ($1500 m2)</option>
-                <option value="300">Vinil Decorativo ($300 m2)</option>
-            </select>
-            <label>Metros Cuadrados (m²):</label>
-            <input type="number" id="cantidad" placeholder="Ej: 5" min="1">
-            <button class="btn-cotizar" onclick="calcular()">Obtener Cotización</button>
-            <div id="resultado"></div>
-        </div>
-    </section>
 
 <section id="contacto">
     <h2>Contacto y Ubicación</h2>
@@ -386,23 +429,25 @@
     <footer>
         <p>&copy; 2023 CORTEX ANUNCIOS. Todos los derechos reservados.</p>
     </footer>
+<script>
+    const menu = document.querySelector('#mobile-menu');
+    const menuLinks = document.querySelector('#nav-list');
 
-    <script>
-        function calcular() {
-            const precioBase = document.getElementById('item').value;
-            const metros = document.getElementById('cantidad').value;
-            const resultado = document.getElementById('resultado');
+    // Abrir/Cerrar menú al clickear la hamburguesa
+    menu.addEventListener('click', function() {
+        menu.classList.toggle('is-active');
+        menuLinks.classList.toggle('active');
+    });
 
-            if (metros > 0) {
-                const total = precioBase * metros;
-                resultado.innerHTML = "Total Estimado: $" + total.toLocaleString() + " MXN";
-                resultado.style.color = "#2ecc71";
-            } else {
-                resultado.innerHTML = "Por favor, ingresa una cantidad válida.";
-                resultado.style.color = "#e74c3c";
-            }
-        }
-    </script>
+    // Cerrar el menú automáticamente al hacer click en una opción
+    document.querySelectorAll('#nav-list li a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        });
+    });
+</script>
+
 
 </body>
 </html>
