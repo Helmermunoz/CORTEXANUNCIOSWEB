@@ -9,7 +9,11 @@
         body { background: #f9f9f9; padding: 20px; }
         .header-catalogo { text-align: center; padding: 40px 0; background: #222; color: white; margin-bottom: 30px; border-radius: 10px; }
         .btn-regresar { display: inline-block; margin-bottom: 20px; color: #2250e6; text-decoration: none; font-weight: bold; }
-        
+        .item-catalogo img.alejar {
+            padding: .2px; /* Ajusta el número para alejarla más o menos */
+            background-color: #f8f9fa; /* Un color de fondo suave ayuda al efecto */
+            object-fit: contain; /* Importante para que no se corte */
+        }
         .galeria-extendida { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -46,14 +50,14 @@
         }
 
         .item-catalogo { 
-    background: white; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    /* Cambia 'shadow' por 'box-shadow' */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-    border: 1px solid #eee; 
-    transition: transform 0.3s ease; /* Tip: agrega esto para que se mueva suave */
-}
+            background: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            /* Cambia 'shadow' por 'box-shadow' */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            border: 1px solid #eee; 
+            transition: transform 0.3s ease; /* Tip: agrega esto para que se mueva suave */
+        }
 
 /* Tip extra: efecto al pasar el mouse */
 .item-catalogo:hover {
@@ -134,7 +138,15 @@
                 <h4>Placa de Acrílico Corporativa con Sujetadores de Acero (Standoffs)</h4>
                 <p>Gráficos en alta resolución mediante impresión UV directa o vinil autoadherible de alta calidad, con colores vibrantes y degradados precisos.</p>
             </div>
+        </div>        <!-- Producto Nuevo 9-->
+        <div class="item-catalogo">
+            <img src="LETREROINTERIOR10.jpg" class="alejar" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Letras en Acrílico y grises</h4>
+                <p>Fabricación de letrero en acrílico </p>
+            </div>
         </div>
+
      <!-- Contenido fijo -->
     <div class="hero-content">
            <a href="Cotizador.html" class="btn-cta">Cotizar mi Proyecto</a>
