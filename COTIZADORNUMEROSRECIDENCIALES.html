@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Interactivo - Cortex</title>
+    <style>
+        :root {
+            --rosseta-red: #c0392b;
+            --dark-gray: #333;
+            --light-bg: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #eee;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cotizador-card {
+            background: white;
+            max-width: 450px;
+            width: 100%;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #444;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select:focus {
+            border-color: var(--rosseta-red);
+        }
+
+        .total-container {
+            background: var(--dark-gray);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .total-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .price {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .btn-whatsapp {
+            display: block;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+
+        .note {
+            font-size: 0.75em;
+            color: #999;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cotizador-card">
+    <h2>Cotizador Cortex Numero Domiciliario</h2>
+    <p class="subtitle">Personaliza tu número o placa domiciliaria</p>
+    <div class="form-group">
+        <label>Dirección o Números a fabricar:</label>
+        <input type="text" id="direccion" placeholder="Ej. Juárez #123" oninput="calcular()">
+    </div>
+    <div class="form-group">
+        <label>Tipo de Producto:</label>
+        <select id="producto" onchange="calcular()">
+            <optgroup label="Números 3D (20 cm)">
+                <option value="380">Negro Mate 3D</option>
+                <option value="380">Negro brillante 3D</option>
+                <option value="380">Dorado Espejo Premium 3D</option>
+                <option value="300">Plata  3D</option>
+                <option value="380">Numeros plata espejo </option>
+            </optgroup>
+            <optgroup label="Placas y Planos">
+                <option value="100">Número Plano plata (Panel Cepillado)</option>
+                <option value="120">Número Plano Negro (Panel Cepillado)</option>
+                <option value="500">Placa Moderna (con 4 Chapetones)</option>
+                <option value="600">Placa Industrial (Pintura Electrostática)</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Cantidad de dígitos/piezas:</label>
+        <input type="number" id="cantidad" value="1" min="1" oninput="calcular()">
+    </div>
+
+    <div class="form-group">
+        <label>Tamaño:</label>
+        <select id="tamano" onchange="calcular()">
+            <option value="1">Estándar (20 cm)</option>
+            <option value="1.5">Grande (30 cm) +50%</option>
+            <option value="0.7">Pequeño (15 cm) -30%</option>
+        </select>
+    </div>
+
+    <div class="total-container">
+        <span class="total-label">Inversión Estimada</span>
+        <span class="price" id="total">$0.00</span>
+    </div>
+
+    <a href="https://wa.me/message/KQ5AVA3EJWZ5G1" id="waLink" class="btn-whatsapp" target="_blank">Enviar pedido por WhatsApp</a>
+    
+    <p class="note">*Los precios son estimaciones y pueden variar según el diseño final.</p>
+</div>
+
+<script>
+    function calcular() {
+        // Obtenemos valores
+        const precioBase = parseFloat(document.getElementById('producto').value);
+        const cantidad = parseInt(document.getElementById('cantidad').value) || 0;
+        const factorTamano = parseFloat(document.getElementById('tamano').value);
+
+        // Cálculo
+        let subtotal = (precioBase * cantidad) * factorTamano;
+
+        // Mostrar total formateado
+        document.getElementById('total').innerText = '$' + subtotal.toLocaleString('es-MX', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        // Crear mensaje de WhatsApp
+        const productoNombre = document.getElementById('producto').options[document.getElementById('producto').selectedIndex].text;
+        const tamanoNombre = document.getElementById('tamano').options[document.getElementById('tamano').selectedIndex].text;
+        
+// MENSAJE ACTUALIZADO A CORTEX ANUNCIOS
+        const mensaje = `¡Hola Cortex Anuncios! 👋 Me interesa una cotización:\n\n` +
+                        `📍 Dirección/Texto: ${direccionText}\n` +
+                        `🔹 Producto: ${productoNombre}\n` +
+                        `🔹 Cantidad: ${cantidad} pieza(s)\n` +
+                        `🔹 Tamaño: ${tamanoNombre}\n` +
+                        `💰 Total estimado: $${subtotal.toLocaleString('es-MX')}\n\n` +
+                        `¿Me podrían dar más información?`;
+
+        const encoded = encodeURIComponent(mensaje);
+        const telefono = "526681490233"; 
+        document.getElementById('waLink').href = `https://wa.me/${telefono}?text=${encoded}`;
+    }
+    
+
+    // Inicializar al cargar
+    window.onload = calcular;
+</script>
+
+</body>
+</html>
