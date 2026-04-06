@@ -9,7 +9,11 @@
         body { background: #f9f9f9; padding: 20px; }
         .header-catalogo { text-align: center; padding: 40px 0; background: #222; color: white; margin-bottom: 30px; border-radius: 10px; }
         .btn-regresar { display: inline-block; margin-bottom: 20px; color: #2250e6; text-decoration: none; font-weight: bold; }
-        
+        .item-catalogo img.alejar {
+            padding: .2px; /* Ajusta el número para alejarla más o menos */
+            background-color: #f8f9fa; /* Un color de fondo suave ayuda al efecto */
+            object-fit: contain; /* Importante para que no se corte */
+        }  
         .galeria-extendida { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -86,7 +90,7 @@
 
         <!-- Producto Nuevo 2 -->
         <div class="item-catalogo">
-            <img src="NUMERO3D2.jpg" alt="Trabajo Realizado">
+            <img src="NUMERO3D2.jpg" class="alejar" alt="Trabajo Realizado">
             <div class="info-item">
                 <h4>Plata Espejo (20 cm)</h4>
                 <p>Elegancia Contemporánea y Brillo Sofisticado</p>
@@ -94,7 +98,7 @@
         </div>
         <!-- Producto Nuevo 1 -->
         <div class="item-catalogo">
-            <img src="NUMERO3D3.jpg" alt="Trabajo Realizado">
+            <img src="NUMERO3D3.jpg"  alt="Trabajo Realizado">
             <div class="info-item">
                 <h4>Negro Mate (20 cm)</h4>
                 <p>Minimalismo Absoluto y Distinción Sobria</p>
@@ -110,9 +114,17 @@
             </div>
         </div>
 
+        <div class="item-catalogo">
+            <img src="NUMERO3D5.jpg" alt="Trabajo Realizado">
+            <div class="info-item">
+                <h4>Número 3D Negro mate </h4>
+                <p>Numero 3D diferentes tipografias</p>
+            </div>
+        </div>
+
         <!-- Producto Nuevo 1 -->
         <div class="item-catalogo">
-            <img src="NUMEROPLANO1.jpg" alt="Trabajo Realizado">
+            <img src="NUMEROPLANO1.jpg" class="alejar" alt="Trabajo Realizado">
             <div class="info-item">
                 <h4>Numero para Casa Plano</h4>
                 <p>Numero Para Domicilio En Panel Cepillado</p>
