@@ -17,6 +17,34 @@
             max-width: 1200px; 
             margin: auto; 
         }
+        .hero-content {
+            grid-column: 1 / -1; /* Esto hace que el contenedor abarque todas las columnas del grid */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            width: 100%;
+        }
+
+        /* Estilos para que el botón se vea bien (basado en tu diseño) */
+        .btn-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #e67e22; /* Naranja Cortex */
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-cta:hover {
+            background: #d35400;
+            transform: scale(1.05);
+        }
+
 
         .item-catalogo { background: white; border-radius: 10px; overflow: hidden; shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #eee; }
         .item-catalogo img { width: 100%; height: 250px; object-fit: cover; }
@@ -69,6 +97,10 @@
                 <h4>Letrero en vinil de corte</h4>
                 <p>Letrero en vinil de corte para oficinas</p>
             </div>
+        </div>
+        <!-- Contenido fijo -->
+        <div class="hero-content">
+            <a href="Cotizador.html" class="btn-cta">Cotizar mi Proyecto</a>
         </div>
 
 
