@@ -169,11 +169,14 @@
 </div>
 
 <script>
-    function calcular() {
+function calcular() {
         // Obtenemos valores
         const precioBase = parseFloat(document.getElementById('producto').value);
         const cantidad = parseInt(document.getElementById('cantidad').value) || 0;
         const factorTamano = parseFloat(document.getElementById('tamano').value);
+        
+        // CORRECCIÓN: Obtener el texto de la dirección
+        const direccionText = document.getElementById('direccion').value || "No especificada";
 
         // Cálculo
         let subtotal = (precioBase * cantidad) * factorTamano;
@@ -188,7 +191,7 @@
         const productoNombre = document.getElementById('producto').options[document.getElementById('producto').selectedIndex].text;
         const tamanoNombre = document.getElementById('tamano').options[document.getElementById('tamano').selectedIndex].text;
         
-// MENSAJE ACTUALIZADO A CORTEX ANUNCIOS
+        // MENSAJE ACTUALIZADO A CORTEX ANUNCIOS
         const mensaje = `¡Hola Cortex Anuncios! 👋 Me interesa una cotización:\n\n` +
                         `📍 Dirección/Texto: ${direccionText}\n` +
                         `🔹 Producto: ${productoNombre}\n` +
@@ -201,7 +204,6 @@
         const telefono = "526681490233"; 
         document.getElementById('waLink').href = `https://wa.me/${telefono}?text=${encoded}`;
     }
-    
 
     // Inicializar al cargar
     window.onload = calcular;
