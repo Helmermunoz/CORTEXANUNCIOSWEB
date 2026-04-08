@@ -27,32 +27,44 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative; /* Para posicionar la imagen */
+            overflow: hidden;
+        }
+
+        /* Estilo de la previsualización */
+        .preview-box {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            background-size: cover;
+            background-position: center;
+            background-color: #fff;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         h2 {
-            text-align: center;
+            text-align: left; /* Alineado a la izquierda para dejar espacio a la foto */
             color: var(--dark-gray);
             margin-bottom: 5px;
+            padding-right: 90px;
         }
 
         p.subtitle {
-            text-align: center;
+            text-align: left;
             font-size: 0.9em;
             color: #777;
             margin-bottom: 25px;
+            padding-right: 90px;
         }
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 7px;
-            color: #444;
-        }
-
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: bold; margin-bottom: 7px; color: #444; }
+        
         select, input {
             width: 100%;
             padding: 12px;
@@ -60,13 +72,11 @@
             border-radius: 8px;
             font-size: 15px;
             outline: none;
-            box-sizing: border-box; /* Evita que el input se salga del borde */
+            box-sizing: border-box;
             transition: 0.3s;
         }
 
-        select:focus, input:focus {
-            border-color: var(--rosseta-red);
-        }
+        select:focus, input:focus { border-color: var(--rosseta-red); }
 
         .total-container {
             background: var(--dark-gray);
@@ -77,18 +87,8 @@
             margin-top: 25px;
         }
 
-        .total-label {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: block;
-        }
-
-        .price {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #fff;
-        }
+        .total-label { font-size: 0.8em; text-transform: uppercase; display: block; }
+        .price { font-size: 2.2em; font-weight: bold; color: #fff; }
 
         .btn-whatsapp {
             display: block;
@@ -104,26 +104,21 @@
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
+            text-decoration: none;
         }
 
-        .btn-whatsapp:hover {
-            background: #128c7e;
-            transform: translateY(-2px);
-        }
-
-        .note {
-            font-size: 0.75em;
-            color: #999;
-            margin-top: 15px;
-            text-align: center;
-        }
+        .btn-whatsapp:hover { background: #128c7e; transform: translateY(-2px); }
+        .note { font-size: 0.75em; color: #999; margin-top: 15px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="cotizador-card">
+    <!-- Contenedor de la imagen de previsualización -->
+    <div id="img-preview" class="preview-box"></div>
+
     <h2>Cotizador Cortex</h2>
-    <p class="subtitle">Personaliza tu número o placa domiciliaria</p>
+    <p class="subtitle">Personaliza tu placa domiciliaria</p>
     
     <div class="form-group">
         <label>Dirección o Números a fabricar:</label>
@@ -132,21 +127,18 @@
 
     <div class="form-group">
         <label>Tipo de Producto:</label>
+        <!-- Importante: el valor ahora es el ID del producto para el JS -->
         <select id="producto" onchange="calcular()">
             <optgroup label="Números 3D (20 cm)">
-                <option value="380">Negro Mate 3D</option>
-                <option value="380">Negro brillante 3D</option>
-                <option value="380">Dorado Espejo Premium 3D</option>
-                <option value="300">Plata 3D</option>
-                <option value="380">Números plata espejo</option>
-                <option value="400">Números plata bicolor</option>
-                <option value="400">Números dorado bicolor</option>
+                <option value="negro3d" data-precio="380">Negro Mate 3D</option>
+                <option value="brillante3d" data-precio="380">Negro brillante 3D</option>
+                <option value="dorado3d" data-precio="380">Dorado Espejo Premium 3D</option>
+                <option value="plata3d" data-precio="300">Plata 3D</option>
+                <option value="espejo3d" data-precio="380">Números plata espejo</option>
             </optgroup>
             <optgroup label="Placas y Planos">
-                <option value="100">Número Plano plata (Panel Cepillado)</option>
-                <option value="120">Número Plano Negro (Panel Cepillado)</option>
-                <option value="500">Placa Moderna (con 4 Chapetones)</option>
-                <option value="600">Placa Industrial (Pintura Electrostática)</option>
+                <option value="plano_plata" data-precio="100">Número Plano plata</option>
+                <option value="placa_moderna" data-precio="500">Placa Moderna (Chapetones)</option>
             </optgroup>
         </select>
     </div>
@@ -178,11 +170,33 @@
 </div>
 
 <script>
+// 1. MAPE DE IMÁGENES: Cambia estas URLs por las fotos reales de tus trabajos
+const catalogoImagenes = {
+    "negro3d": "numero3DcotizadorNegromate.jpg",
+    "brillante3d": "numero3DcotizadorNEGROBRILLANTE.jpg",
+    "dorado3d": "numero3DcotizadorDORADOESPEJO.jpg",
+    "plata3d": "NUMERO3D2.jpg",
+    "espejo3d": "numero3DcotizadorPLATAESPEJO.jpg",
+    "plano_plata": "NUMEROPLANO1.jpg",
+    "placa_moderna": "NUMERODOMICILIARIO2ia.jpg"
+};
+
 function calcular() {
-    const precioBase = parseFloat(document.getElementById('producto').value);
+    const selectProducto = document.getElementById('producto');
+    const opcionSeleccionada = selectProducto.options[selectProducto.selectedIndex];
+    
+    // Obtener precio desde el atributo data-precio
+    const precioBase = parseFloat(opcionSeleccionada.getAttribute('data-precio'));
     const cantidad = parseInt(document.getElementById('cantidad').value) || 0;
     const factorTamano = parseFloat(document.getElementById('tamano').value);
     
+    // Actualizar Imagen
+    const idProducto = selectProducto.value;
+    const imgPreview = document.getElementById('img-preview');
+    if(catalogoImagenes[idProducto]) {
+        imgPreview.style.backgroundImage = `url('${catalogoImagenes[idProducto]}')`;
+    }
+
     let subtotal = (precioBase * cantidad) * factorTamano;
 
     document.getElementById('total').innerText = '$' + subtotal.toLocaleString('es-MX', {
@@ -194,7 +208,7 @@ function calcular() {
 }
 
 function enviarWhatsApp() {
-    const totalEstimado = calcular();
+    const totalEstimado = document.getElementById('total').innerText;
     const direccionText = document.getElementById('direccion').value || "No especificada";
     const productoNombre = document.getElementById('producto').options[document.getElementById('producto').selectedIndex].text;
     const cantidad = document.getElementById('cantidad').value;
@@ -202,18 +216,16 @@ function enviarWhatsApp() {
     
     const telefono = "526681490233"; 
 
-    const mensaje = `¡Hola Cortex Anuncios! 👋 Me interesa una cotización:\n\n` +
+    const mensaje = `¡Hola Cortex Anuncios! 👋\n\n` +
+                    `Me interesa una cotización:\n` +
                     `📍 *Dirección:* ${direccionText}\n` +
                     `🔹 *Producto:* ${productoNombre}\n` +
                     `🔹 *Cantidad:* ${cantidad} pieza(s)\n` +
                     `🔹 *Tamaño:* ${tamanoNombre}\n` +
-                    `💰 *Total estimado:* $${totalEstimado.toLocaleString('es-MX')}\n\n` +
+                    `💰 *Total estimado:* ${totalEstimado}\n\n` +
                     `¿Me podrían dar más información?`;
 
-    const encoded = encodeURIComponent(mensaje);
-    const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encoded}`;
-    
-    window.open(url, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
 window.onload = calcular;
