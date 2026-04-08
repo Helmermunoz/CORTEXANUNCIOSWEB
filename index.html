@@ -5,6 +5,7 @@
     <!-- 1. Forzamos el ajuste de pantalla -->
     <meta name="description" content="Expertos en soluciones publicitarias de alto impacto en Los Mochis. Cotiza letreros luminosos, neones, lonas y números 3D para tu negocio.">    <title>CORTEX ANUNCIOS | Publicidad Profesional</title>
     <style>
+
         /* 2. Evitamos que cualquier cosa se salga por la derecha (Causa principal del desajuste) */
         html, body { 
             overflow-x: hidden; 
@@ -210,6 +211,7 @@
     .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 }
+
         
 
 
@@ -242,6 +244,11 @@
         width: 100%; 
         height: 250px; 
         object-fit: cover; 
+    }
+    .item-producto img.alejar {
+            padding: 10px; /* Ajusta el número para alejarla más o menos */
+            background-color: #f8f9fa; /* Un color de fondo suave ayuda al efecto */
+            object-fit: contain; /* Importante para que no se corte */
     }
 
 
@@ -349,9 +356,9 @@
         <!-- Product 1: Letreros -->
         <a href="LETREROSINTERIORES.html" class="producto-link">
             <div class="producto">
-                <img src="ACRILICOBLANCOANUNCIO.jpg" alt="Letrero Para Interiores">
+                <img src="ACRILICOBLANCOANUNCIO.jpg"  padding: 10px;  alt="Letrero Para Interiores">
                 <h3>Letreros Para El Interior De Tu Negocio</h3>
-                <p>Anuncio Interior</p>
+                <p>Anuncio Para Interior</p>
                 <span class="btn-ver-mas">Cotizar Ahora</span>
             </div>
         </a>
