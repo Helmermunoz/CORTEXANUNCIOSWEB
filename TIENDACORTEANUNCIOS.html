@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Cortex Anuncios</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; padding: 50px; }
+        .tienda-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        
+        /* Estilo de la tarjeta de producto */
+        .producto-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 280px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .producto-card:hover { transform: translateY(-5px); }
+        .producto-card img { width: 100%; border-radius: 8px; height: 200px; object-fit: cover; }
+        .producto-card h3 { color: #333; margin: 15px 0; }
+        .producto-card .precio { font-size: 1.2em; font-weight: bold; color: #2ecc71; margin-bottom: 20px; }
+        
+        /* Botón estilo Mercado Pago */
+        .btn-pagar {
+            display: block;
+            background-color: #009ee3;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-pagar:hover { background-color: #007eb5; }
+        .envio-info { font-size: 0.8em; color: #777; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="tienda-container">
+
+    <!-- PRODUCTO 1 -->
+    <div class="producto-card">
+        <img src="https://placeholder.com" alt="Producto 1">
+        <h3>Campaña Básica</h3>
+        <p class="precio">$1,500 MXN</p>
+        <!-- Reemplaza el # por tu link generado en Mercado Pago -->
+        <a href="https://mpago.la" target="_blank" class="btn-pagar">Comprar Ahora</a>
+        <p class="envio-info">Entrega digital inmediata</p>
+    </div>
+
+    <!-- PRODUCTO 2 -->
+    <div class="producto-card">
+        <img src="https://placeholder.com" alt="Producto 2">
+        <h3>Campaña Pro</h3>
+        <p class="precio">$3,500 MXN</p>
+        <!-- Reemplaza el # por tu link generado en Mercado Pago -->
+        <a href="https://mpago.la" target="_blank" class="btn-pagar">Comprar Ahora</a>
+        <p class="envio-info">Envío de reporte incluido</p>
+    </div>
+
+    <!-- PRODUCTO 3 -->
+    <div class="producto-card">
+        <img src="https://placeholder.com" alt="Producto 3">
+        <h3>Consultoría VIP</h3>
+        <p class="precio">$5,000 MXN</p>
+        <!-- Reemplaza el # por tu link generado en Mercado Pago -->
+        <a href="https://mpago.la" target="_blank" class="btn-pagar">Comprar Ahora</a>
+        <p class="envio-info">Cita agendada vía Zoom</p>
+    </div>
+
+</div>
+
+</body>
+</html>

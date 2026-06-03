@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Cortex Anuncios</title>
+    <style>
+        :root {
+            --cortex-accent: #facc15;
+            --cortex-dark: #121212;
+            --whatsapp: #25d366;
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif, Arial; 
+            margin: 0;
+            min-height: 100vh;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            padding: 20px;
+            /* Fondo inspirado en cortexanuncios.com.mx */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://cortexanuncios.com.mx'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .card { 
+            background: rgba(26, 26, 26, 0.95); 
+            padding: 40px 30px; 
+            border-radius: 15px; 
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+            width: 100%; 
+            max-width: 420px;
+            backdrop-filter: blur(5px);
+        }
+
+        h2 { 
+            margin-top: 0; 
+            color: var(--cortex-accent); 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+            font-size: 1.4rem;
+        }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+
+        label { display: block; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; color: #bbb; font-weight: bold; }
+        
+        input[type="number"] { 
+            width: 100%; padding: 12px; border: 1px solid #333; background: #000; color: white; border-radius: 8px; font-size: 1.1rem; box-sizing: border-box;
+        }
+
+        .option-group { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; border: 1px solid #333; margin-bottom: 25px; }
+
+        .check-item { display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; font-size: 0.85rem; color: #ddd; }
+        .check-item:last-child { margin-bottom: 0; }
+        .check-item input { margin-right: 12px; accent-color: var(--cortex-accent); width: 22px; height: 22px; }
+
+        .result-box { 
+            border: 2px solid var(--cortex-accent); 
+            color: var(--cortex-accent); 
+            padding: 20px; 
+            text-align: center; 
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        .total-amount { font-size: 2.8rem; font-weight: 900; display: block; margin-top: 5px; }
+        
+        .btn {
+            display: block; width: 100%; padding: 16px; text-align: center; text-decoration: none; text-transform: uppercase;
+            font-weight: 900; font-size: 0.85rem; margin-bottom: 12px; border-radius: 8px; cursor: pointer; border: none; transition: 0.3s;
+        }
+
+        .btn-whatsapp { background-color: var(--cortex-accent); color: #000; }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(250, 204, 21, 0.4); }
+
+        .btn-back { background: transparent; color: #777; border: 1px solid #444; }
+        .btn-back:hover { color: white; border-color: white; }
+
+        .footer-note { text-align: center; font-size: 0.65rem; color: #666; margin-top: 20px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Cotizar Lona</h2>
+    
+    <div class="grid">
+        <div>
+            <label>Ancho (Metros)</label>
+            <input type="number" id="ancho" value="1.0" step="0.1" min="0.1" oninput="calcular()">
+        </div>
+        <div>
+            <label>Alto (Metros)</label>
+            <input type="number" id="alto" value="1.0" step="0.1" min="0.1" oninput="calcular()">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <label class="check-item">
+            <input type="checkbox" id="bastidor" onchange="calcular()"> 
+            <div><strong>Bastidor PTR 1x1</strong><br><small>Refuerzo metálico industrial</small></div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" id="ojuelos" onchange="calcular()"> 
+            <div><strong>Ojuelos Metálicos</strong><br><small>Perímetro reforzado</small></div>
+        </label>
+    </div>
+
+    <div class="result-box">
+        <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Presupuesto Estimado</span>
+        <span class="total-amount">$<span id="total-display">90.00</span></span>
+        <small style="color: #666">M² calculados: <span id="m2-display">1.00</span></small>
+    </div>
+
+    <button class="btn btn-whatsapp" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+    <a href="https://cortexanuncios.com.mx/" class="btn btn-back">Regresar al Catálogo</a>
+
+    <div class="footer-note">Cortex Anuncios © 2026 | Precio base lona: $90 m²</div>
+</div>
+
+<script>
+    function calcular() {
+        const PRECIO_BASE_M2 = 90;
+        const PRECIO_PTR_M2 = 180;
+        const PRECIO_OJUELOS_FIJO = 25;
+
+        const ancho = parseFloat(document.getElementById('ancho').value) || 0;
+        const alto = parseFloat(document.getElementById('alto').value) || 0;
+        const m2 = ancho * alto;
+        
+        let total = m2 * PRECIO_BASE_M2;
+        if (document.getElementById('bastidor').checked) total += (m2 * PRECIO_PTR_M2);
+        if (document.getElementById('ojuelos').checked && m2 > 0) total += PRECIO_OJUELOS_FIJO;
+
+        document.getElementById('m2-display').innerText = m2.toFixed(2);
+        document.getElementById('total-display').innerText = total.toLocaleString('es-MX', {minimumFractionDigits: 2});
+        return { ancho, alto, m2, total };
+    }
+
+    function enviarWhatsApp() {
+        const datos = calcular();
+        const bastidor = document.getElementById('bastidor').checked ? "CON BASTIDOR PTR" : "SIN BASTIDOR";
+        const ojuelos = document.getElementById('ojuelos').checked ? "CON OJUELOS" : "SIN OJUELOS";
+        const telefono = "526681490233"; 
+
+        // Usamos saltos de línea normales (\n) porque encodeURIComponent los convertirá correctamente
+        const mensaje = `*COTIZACIÓN LONA - CORTEX ANUNCIOS*\n\n` +
+                        `📐 *Medidas:* ${datos.ancho}m x ${datos.alto}m\n` +
+                        `📏 *Superficie:* ${datos.m2.toFixed(2)} m2\n` +
+                        `🛠 *Acabado:* ${bastidor} y ${ojuelos}\n` +
+                        `💰 *Total Estimado:* $${datos.total.toLocaleString('es-MX')}\n\n` +
+                        `_Favor de confirmar disponibilidad y tiempo de entrega._`;
+        
+        // CORRECCIÓN: Quitamos la "h" extra de "hhttps" y usamos la variable mensaje limpia
+        window.open(`https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+
+
+    window.onload = calcular;
+</script>
+
+</body>
+</html>
