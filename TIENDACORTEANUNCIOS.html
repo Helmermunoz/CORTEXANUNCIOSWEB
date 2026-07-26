@@ -54,18 +54,19 @@
         /* Contenedor del letrero base */
         .letrero-mockup { width: 260px; height: 260px; border-radius: 8px; border: 3px dashed rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; background: rgba(255,255,255,0.02); transition: all 0.4s ease; position: relative; overflow: hidden; }
         
-        /* Clase dinámica que se activa al elegir formato Circular (FIJADO CON !IMPORTANT) */
+        /* Clase dinámica que se activa al elegir formato Circular */
         .letrero-mockup.forma-circular { border-radius: 50% !important; }
         
-        /* Imagen del logotipo subido */
+        /* Imagen del logotipo subido: solo se muestra cuando existe la clase has-logo */
         .user-logo-preview { max-width: 80%; max-height: 60%; object-fit: contain; margin-bottom: 15px; display: none; transition: all 0.4s ease; filter: drop-shadow(0 0 0px transparent); }
+        .user-logo-preview.has-logo { display: block; }
         
         /* EFECTOS DE ILUMINACIÓN CSS (Simulación de luces y resplandores) */
         .letrero-mockup.efecto-retro { border-style: solid; box-shadow: 0 0 35px rgba(230, 126, 34, 0.4), inset 0 0 20px rgba(230, 126, 34, 0.2); border-color: rgba(230, 126, 34, 0.5); }
-        .letrero-mockup.efecto-retro .user-logo-preview { display: block !important; filter: drop-shadow(0 0 15px rgba(230, 126, 34, 0.8)) !important; }
+        .letrero-mockup.efecto-retro .user-logo-preview.has-logo { filter: drop-shadow(0 0 15px rgba(230, 126, 34, 0.8)) !important; }
         
         .letrero-mockup.efecto-neon { border-style: solid; box-shadow: 0 0 40px #e67e22, inset 0 0 20px #e67e22; border-color: #e67e22; }
-        .letrero-mockup.efecto-neon .user-logo-preview { display: block !important; filter: drop-shadow(0 0 10px #e67e22) drop-shadow(0 0 20px #e67e22) brightness(1.2) !important; }
+        .letrero-mockup.efecto-neon .user-logo-preview.has-logo { filter: drop-shadow(0 0 10px #e67e22) drop-shadow(0 0 20px #e67e22) brightness(1.2) !important; }
         
         /* COLUMNA DERECHA: CONFIGURADOR FORMULARIO */
         .form-box { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
@@ -99,7 +100,6 @@
     <nav>
         <div class="logo">
             <a href="index.html">
-                <!-- Se asocia la clase CSS para controlar el tamaño gigante -->
                 <img src="CORTEXLOGO.jpg" alt="MUNAPO ANUNCIOS" class="logo-header-img">
             </a>
         </div>
@@ -117,7 +117,7 @@
         <section class="preview-box">
             <div class="preview-title">Visualización de Letrero</div>
             <div id="mockup" class="letrero-mockup">
-                <img id="logo-preview-img" class="user-logo-preview" src="CORTEXLOGO.jpg" alt="Tu Logotipo">
+                <img id="logo-preview-img" class="user-logo-preview" alt="Tu Logotipo">
                 <span id="txt-material" style="font-weight: bold; font-size: 13px;">Acrílico Cristal</span>
                 <span id="txt-acabado" style="font-size: 11px; color: #e67e22; margin-top: 3px;">Vinil de Corte</span>
                 <span id="txt-medida" style="font-size: 11px; opacity: 0.6; margin-top: 5px;">60x40 cm</span>
@@ -170,11 +170,10 @@
                 </select>
             </div>
 
-           00 <!-- SELECCIÓN DE COLOR DE NEÓN (Oculto por defecto, se activa dinámicamente) -->
+            <!-- SELECCIÓN DE COLOR DE NEÓN (Oculto por defecto, se activa dinámicamente) -->
             <div id="grupo-tipo-neon" class="form-group" style="display: none; background: #eef3f9; padding: 12px; border-radius: 6px; border-left: 4px solid #e67e22; margin-top: -10px; margin-bottom: 20px;">
                 <label for="tipo-neon" style="font-size: 13px; font-weight: bold; color: #001a3d; margin-bottom: 5px; display: block;">Color del Neón LED</label>
                 <select id="tipo-neon" onchange="calcularPrecio()">
-
                     <option value="calido">🔥 Blanco Cálido (Estilo elegante / acogedor)</option>
                     <option value="frio">❄️ Blanco Frío (Estilo moderno / alta visibilidad)</option>
                     <option value="rosa">💖 Rosa Neón</option>
@@ -182,7 +181,7 @@
                 </select>
             </div>
 
-            <!-- 5. DIMENSIONES Y FORMATOS CON PRECIOS FIJOS DE LONA -->
+            <!-- 5. DIMENSIONES Y FORMATOS -->
             <div class="form-group">
                 <label for="medida">5. Dimensión y Formato del Letrero</label>
                 <select id="medida" onchange="calcularPrecio()">
@@ -246,7 +245,6 @@
         </section>
     </main>
 
-    <!-- LÓGICA DE JAVASCRIPT REVISADA Y BLINDADA -->
     <script>
         function cargarLogotipo(input) {
             if (input.files && input.files[0]) {
@@ -255,7 +253,7 @@
                     const imgPreview = document.getElementById('logo-preview-img');
                     if (imgPreview) {
                         imgPreview.src = e.target.result;
-                        imgPreview.style.display = 'block'; 
+                        imgPreview.classList.add('has-logo');
                     }
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -346,7 +344,7 @@
                 detallesExtras += `• *Vectorización de logo:* Sí (+ $200.00)\n`;
             }
 
-            // 5. Renderizar precio corregido en pantalla
+            // 5. Renderizar precio en pantalla
             const displayPrecio = document.getElementById('precio-display');
             if (displayPrecio) {
                 displayPrecio.innerText = '$' + precioFinal.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MXN';
@@ -363,7 +361,7 @@
             const textoRotuladoClean = rawRotulado.includes('(') ? rawRotulado.split('(')[0].trim() : rawRotulado.trim();
 
             const rawMedida = selectMedida.options[selectMedida.selectedIndex].text;
-            const textoMedidaClean = rawMedida.includes('-') ? rawMedida.split('-')[0].trim() : rawMedida.trim();
+            const textoMedidaClean = rawMedida.includes('-') ? rawMedida.split('-')[1].trim() : rawMedida.trim();
 
             const rawLuz = selectLuz.options[selectLuz.selectedIndex].text;
             const textoLuzClean = rawLuz.includes('(') ? rawLuz.split('(')[0].trim() : rawLuz.trim();
@@ -388,7 +386,7 @@
                 }
             }
 
-            // 8. ENLACE DE WHATSAPP CORPORATIVO DE MUNAPO
+            // 8. ENLACE DE WHATSAPP CORPORATIVO DE MUNAPO (CORREGIDO)
             const telefonoWhatsApp = "526681490233";
             const textoMensaje = `¡Hola *MUNAPO ANUNCIOS*! Configuré una cotización desde la web:\n\n` +
                                  `• *Formato:* Letrero ${formaLetrero.toUpperCase()}\n` +
@@ -404,7 +402,7 @@
 
             const btnWA = document.getElementById('btn-enviar-wa');
             if (btnWA) {
-                btnWA.href = `https://whatsapp.com{telefonoWhatsApp}&text=${encodeURIComponent(textoMensaje)}`;
+                btnWA.href = `[wa.me](https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(textoMensaje)})`;
             }
         }
 
