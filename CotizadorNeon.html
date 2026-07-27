@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Neón LED 2da Generación | CORTEX</title>
+    <style>
+        /* Estructura Global Moderna */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 40px 20px; line-height: 1.5; padding-top: 120px; }
+        
+        /* Header Corporativo CORTEX */
+        header { background: linear-gradient(to right, #003067 0%, #001a3d 100%); border-bottom: 3px solid #e67e22; padding: 10px 0; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; height: 100px; display: flex; align-items: center; }
+        .logo-header-img { height: 75px; width: auto; display: block; object-fit: contain; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; width: 100%; margin: auto; padding: 0 20px; }
+        .logo a { color: white; text-decoration: none; font-weight: bold; font-size: 20px; }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin: 0 10px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 14px; }
+
+        .main-title { text-align: center; margin-bottom: 10px; color: #38bdf8; font-size: 2.2rem; }
+        .main-subtitle { text-align: center; margin-bottom: 40px; color: #94a3b8; font-size: 1rem; }
+
+        /* Contenedor de Dos Columnas */
+        .cotizador-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+        @media (max-width: 900px) { .cotizador-grid { grid-template-columns: 1fr; } }
+
+        /* --- COLUMNA IZQUIERDA: MOCKUP INTERACTIVO --- */
+        .col-preview { position: sticky; top: 140px; height: fit-content; }
+        .preview-box { background: #1e293b; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        .preview-header { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #38bdf8; margin-bottom: 25px; font-weight: bold; }
+        
+        /* Simulación del acrílico y neón */
+        .neon-mockup-base { width: 100%; aspect-ratio: 16/10; background: rgba(255,255,255,0.03); border: 2px dashed rgba(255,255,255,0.15); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transition: all 0.3s ease; overflow: hidden; padding: 20px; }
+        .neon-text-preview { font-family: 'Arial Rounded MT Bold', sans-serif; font-size: 2.2rem; font-weight: bold; text-align: center; text-transform: uppercase; transition: all 0.3s ease; margin-bottom: 10px; }
+        
+        /* Detalles de ficha técnica flotante */
+        .mockup-specs { width: 100%; border-top: 1px solid #334155; margin-top: 25px; padding-top: 15px; display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: #94a3b8; }
+        .spec-item span { font-weight: bold; color: #f8fafc; }
+
+        /* --- COLUMNA DERECHA: CONFIGURADOR FORMULARIO --- */
+        .col-form { background: #1e293b; border-radius: 16px; padding: 35px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        .form-section-title { font-size: 1.1rem; color: #38bdf8; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
+        
+        /* Inputs, Selects y Controles Numéricos */
+        .form-group select, .form-group input[type="text"], .form-group input[type="number"] { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #f8fafc; font-size: 15px; outline: none; transition: all 0.3s; }
+        .form-group select:focus, .form-group input:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        .grid-inputs-medidas { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* Checkboxes Personalizados */
+        .checkbox-label { display: flex; align-items: center; gap: 12px; background: #0f172a; padding: 14px; border-radius: 8px; border: 1px solid #475569; cursor: pointer; transition: all 0.2s; margin-bottom: 10px; font-size: 14px; }
+        .checkbox-label:hover { border-color: #475569; background: #1e293b; }
+        .checkbox-label input { width: 18px; height: 18px; accent-color: #38bdf8; cursor: pointer; }
+
+        /* Bloque de Presupuesto Final */
+        .total-container { background: #0f172a; border-left: 5px solid #38bdf8; padding: 25px; border-radius: 0 12px 12px 0; margin-top: 30px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+        .total-label { font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .total-price { font-size: 2.3rem; font-weight: bold; color: #38bdf8; margin: 5px 0; }
+        .total-note { font-size: 11px; color: #64748b; }
+
+        /* Botón Corporativo de WhatsApp */
+        .btn-send-whatsapp { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: #25d366; color: #000; text-decoration: none; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 20px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-send-whatsapp:hover { background: #1ebd59; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); }
+        
+        /* Paleta de Colores de Neón */
+        .color-selector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 10px; margin-top: 8px; }
+        .color-dot { width: 42px; height: 42px; border-radius: 50%; border: 3px solid #1e293b; cursor: pointer; transition: all 0.2s ease; position: relative; }
+        .color-dot.active { border-color: #f8fafc; transform: scale(1.1); }
+        .color-dot::after { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="CORTEXLOGO.jpg" alt="MUNAPO ANUNCIOS" class="logo-header-img">
+                </a>
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1 class="main-title">Configurador Neón LED</h1>
+    <p class="main-subtitle">Diseña tu letrero de Segunda Generación en tiempo real y recibe una cotización instantánea.</p>
+
+    <div class="cotizador-grid">
+        
+        <!-- ================= COLUMNA IZQUIERDA: PREVIEW SIMULADOR ================= -->
+        <section class="col-preview">
+            <div class="preview-box">
+                <div class="preview-header">Simulador Óptico Real-Time</div>
+                
+                <!-- Lienzo del letrero -->
+                <div id="mockup-base" class="neon-mockup-base">
+                    <div id="mockup-text" class="neon-text-preview">Neon Style</div>
+                </div>
+
+                <!-- Resumen Técnico Flotante -->
+                <div class="mockup-specs">
+                    <div class="spec-item">Base de Acrílico: <span id="lbl-spec-base">Base Rectangular</span></div>
+                    <div class="spec-item">Dimensiones: <span id="lbl-spec-medidas">80 cm × 40 cm</span></div>
+                    <div class="spec-item">Complejidad Neón: <span id="lbl-spec-complejidad">Texto Mediano</span></div>
+                    <div class="spec-item">Color Activo: <span id="lbl-spec-color">Blanco Cálido</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COLUMNA DERECHA: CONFIGURADOR MATEMÁTICO ================= -->
+        <section class="col-form">
+            
+            <!-- SECCIÓN 1: DISEÑO Y CONTENIDO -->
+            <div class="form-section-title">✏️ 1. Personalización del Neón</div>
+            
+            <div class="form-group">
+                <label for="input-texto-neon">Texto o Frase a Fabricar</label>
+                <input type="text" id="input-texto-neon" value="Neon Style" placeholder="Escribe el texto de tu letrero..." oninput="actualizarCotizador()">
+            </div>
+
+            <div class="form-group">
+                <label>Selecciona el Color del Neón Flexible</label>
+                <div class="color-selector-grid" id="contenedor-colores">
+                    <!-- Los botones de color se generan dinámicamente con JS -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-complejidad">Complejidad del Trazado / Cantidad de Neón</label>
+                <select id="select-complejidad" onchange="actualizarCotizador()">
+                    <option value="simple" data-costo="600">Texto Corto / Diseño Lineal Simple (Hasta 5 letras)</option>
+                    <option value="medio" data-costo="1100" selected>Texto Mediano / Complejidad Regular (6 a 12 letras)</option>
+                    <option value="complejo" data-costo="1900">Texto Largo / Logotipo con Silueta (Más de 12 letras)</option>
+                </select>
+            </div>
+
+            <!-- SECCIÓN 2: BASE DE ACRÍLICO -->
+            <div class="form-section-title">📐 2. Soporte y Dimensiones</div>
+
+            <div class="form-group">
+
+                <label for="select-corte-base">Formato y Estilo de Corte Láser</label>
+                <select id="select-corte-base" onchange="actualizarCotizador()">
+                    <option value="rectangular" data-costo="0">Base Rectangular Estándar (Esquinas limpias)</option>
+                    <option value="contorno" data-costo="350">Recortado al Contorno / Silueta del Diseño (Premium)</option>
+                    <option value="circular" data-costo="200">Base en Disco Circular Perfecto</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Dimensiones Totales Solicitadas</label>
+                <div class="grid-inputs-medidas">
+                    <div>
+                        <span style="font-size:11px; color:#94a3b8; display:block; margin-bottom:4px;">Ancho (cm)</span>
+                        <input type="number" id="input-ancho" value="80" min="20" max="240" step="5" oninput="actualizarCotizador()">
+                    </div>
+                    <div>
+                        <span style="font-size:11px; color:#94a3b8; display:block; margin-bottom:4px;">Alto (cm)</span>
+                        <input type="number" id="input-alto" value="40" min="20" max="120" step="5" oninput="actualizarCotizador()">
+                    </div>
+                </div>
+            </div>
+            <!-- SECCIÓN 3: LOGÍSTICA Y EXTRAS -->
+            <div class="form-section-title">🔧 3. Servicios e Instalación</div>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" id="chk-instalacion" data-costo="450" onchange="actualizarCotizador()">
+                <span>Agregar Instalación Profesional (Los Mochis) (+ $450)</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="chk-vectorizacion" data-costo="200" onchange="actualizarCotizador()">
+                <span>No tengo trazo editable / Apoyo en Vectorización (+ $200)</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="chk-envio" data-costo="250" onchange="actualizarCotizador()">
+                <span>Solicitar Envío Nacional Asegurado Express (+ $250)</span>
+            </label>
+
+            <!-- BLOQUE ECONÓMICO FINAL -->
+            <div class="total-container">
+                <div class="total-label">Presupuesto Estimado de Fabricación:</div>
+                <div class="total-price" id="display-precio-final">$0.00 MXN</div>
+                <div class="total-note">*Incluye acrílico de alto impacto, tira neón de 2da gen, transformador de corriente de 12v listo para conectar y herrajes básicos de montaje.</div>
+            </div>
+
+            <!-- BOTÓN DINÁMICO DE ENVÍO -->
+            <a href="#" id="link-whatsapp-cortex" target="_blank" class="btn-send-whatsapp">
+                💬 Enviar Configuración a Taller por WhatsApp
+            </a>
+
+        </section>
+    </div>
+
+    <!-- LÓGICA INTERACTIVA DEL COTIZADOR -->
+    <script>
+        // CONFIGURACIÓN DE BASE DE DATOS DE COLORES Y SU COMPORTAMIENTO LUMÍNICO EN CSS
+        const PALETA_COLORES_NEON = [
+            { id: "calido", nombre: "Blanco Cálido", hex: "#ffdfa9", glow: "0 0 10px #ffb347, 0 0 25px #ffb347" },
+            { id: "frio", nombre: "Blanco Frío", hex: "#f1f5f9", glow: "0 0 10px #cbd5e1, 0 0 25px #cbd5e1" },
+            { id: "rosa", nombre: "Rosa Eléctrico", hex: "#ff79c6", glow: "0 0 10px #ff2a85, 0 0 25px #ff2a85" },
+            { id: "azul", nombre: "Azul Neón", hex: "#00bfff", glow: "0 0 10px #007eff, 0 0 25px #007eff" },
+            { id: "rojo", nombre: "Rojo Intenso", hex: "#ff4d4d", glow: "0 0 10px #ff0000, 0 0 25px #ff0000" },
+            { id: "verde", nombre: "Verde Ácido", hex: "#50fa7b", glow: "0 0 10px #00ff40, 0 0 25px #00ff40" },
+            { id: "morado", nombre: "Morado / UV", hex: "#bd93f9", glow: "0 0 10px #8a2be2, 0 0 25px #8a2be2" }
+        ];
+
+        // CONSTANTE MATEMÁTICA: Costo base por centímetro cuadrado de la placa de acrílico plano
+        const COSTO_ACRILICO_POR_CM2 = 0.13;
+        let colorSeleccionadoGlobal = PALETA_COLORES_NEON[0];
+
+        // Inicialización y renderizado de la paleta visual de colores
+        function inicializarPaletaColores() {
+            const contenedor = document.getElementById("contenedor-colores");
+            if (!contenedor) return;
+            contenedor.innerHTML = "";
+
+            PALETA_COLORES_NEON.forEach((color, index) => {
+                const boton = document.createElement("div");
+                boton.className = `color-dot ${index === 0 ? 'active' : ''}`;
+                boton.style.backgroundColor = color.hex;
+                boton.title = color.nombre;
+                
+                boton.onclick = function() {
+                    document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
+                    boton.classList.add("active");
+                    colorSeleccionadoGlobal = color;
+                    actualizarCotizador();
+                };
+                
+                contenedor.appendChild(boton);
+            });
+        }
+
+        // Función Principal: Orquesta los cálculos matemáticos y actualizaciones en pantalla
+        function actualizarCotizador() {
+            // 1. Obtener valores de texto e inputs
+            const textoIngresado = document.getElementById("input-texto-neon") ? document.getElementById("input-texto-neon").value : "Tu Texto";
+            const ancho = parseFloat(document.getElementById("input-ancho").value) || 0;
+            const alto = parseFloat(document.getElementById("input-alto").value) || 0;
+
+            // 2. Ejecutar la fórmula del área del soporte posterior de acrílico
+            const areaCm2 = ancho * alto;
+            const costoSoporteAcrilico = areaCm2 * COSTO_ACRILICO_POR_CM2;
+
+            // 3. Extraer costos desde los Selectors mediante atributos de datos de HTML
+            const selectComplejidad = document.getElementById("select-complejidad");
+            let costoNeonTira = 0;
+            let textoComplejidad = "Texto Mediano";
+            if (selectComplejidad && selectComplejidad.options.length > 0) {
+                costoNeonTira = parseFloat(selectComplejidad.options[selectComplejidad.selectedIndex].getAttribute("data-costo")) || 0;
+                textoComplejidad = selectComplejidad.options[selectComplejidad.selectedIndex].text;
+            }
+
+            const selectCorte = document.getElementById("select-corte-base");
+            let costoCorteLaser = 0;
+            let textoCorteBase = "Base Rectangular";
+            if (selectCorte && selectCorte.options.length > 0) {
+                costoCorteLaser = parseFloat(selectCorte.options[selectCorte.selectedIndex].getAttribute("data-costo")) || 0;
+                textoCorteBase = selectCorte.options[selectCorte.selectedIndex].text;
+            }
+
+            // Sumatoria acumulada del presupuesto base
+            let presupuestoTotal = costoSoporteAcrilico + costoNeonTira + costoCorteLaser;
+
+            // 4. Agregar cargos de servicios adicionales e instalación si están activos
+            const chkInstalacion = document.getElementById("chk-instalacion");
+            const chkVectorizacion = document.getElementById("chk-vectorizacion");
+            const chkEnvio = document.getElementById("chk-envio");
+
+            if (chkInstalacion && chkInstalacion.checked) presupuestoTotal += 450;
+            if (chkVectorizacion && chkVectorizacion.checked) presupuestoTotal += 200;
+            if (chkEnvio && chkEnvio.checked) presupuestoTotal += 250;
+
+            // 5. Actualizaciones visuales en el Mockup / Simulador
+            const mockupText = document.getElementById("mockup-text");
+            const mockupBase = document.getElementById("mockup-base");
+
+            if (mockupText) {
+                mockupText.innerText = textoIngresado || "Tu Texto";
+                mockupText.style.color = colorSeleccionadoGlobal.hex;
+                mockupText.style.textShadow = colorSeleccionadoGlobal.glow;
+            }
+
+            if (mockupBase && selectCorte) {
+                // Modificar bordes según el tipo de corte configurado
+                if (selectCorte.value === "circular") {
+                    mockupBase.style.borderRadius = "50%";
+                    mockupBase.style.aspectRatio = "1/1";
+                } else if (selectCorte.value === "contorno") {
+                    mockupBase.style.borderRadius = "20px";
+                    mockupBase.style.aspectRatio = "16/10";
+                } else {
+                    mockupBase.style.borderRadius = "8px";
+                    mockupBase.style.aspectRatio = "16/10";
+                }
+            }
+
+            // Actualizar textos informativos en la ficha técnica del mockup con validación de existencia
+            const lblBase = document.getElementById("lbl-spec-base");
+            const lblMedidas = document.getElementById("lbl-spec-medidas");
+            const lblComplejidad = document.getElementById("lbl-spec-complejidad");
+            const lblColor = document.getElementById("lbl-spec-color");
+            const displayPrecio = document.getElementById("display-precio-final");
+
+            if (lblBase) lblBase.innerText = textoCorteBase.split("(")[0].trim();
+            if (lblMedidas) lblMedidas.innerText = `${ancho} cm × ${alto} cm`;
+            if (lblComplejidad) lblComplejidad.innerText = textoComplejidad.split("(")[0].trim();
+            if (lblColor) lblColor.innerText = colorSeleccionadoGlobal.nombre;
+
+            // Renderizar precio final formateado con separadores de miles estándar
+            if (displayPrecio) {
+                displayPrecio.innerText = `$${presupuestoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN`;
+            }
+
+            // 6. Generar y enlazar la cadena de texto para envío automático a WhatsApp
+            configurarEnlaceWhatsAppCortex(presupuestoTotal, textoIngresado, ancho, alto, textoCorteBase, textoComplejidad);
+        }
+
+   function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
+    // Tu enlace de WhatsApp Business oficial de CORTEX
+    const enlaceBaseCortex = "https://wa.me/message/KQ5AVA3EJWZ5G1";
+    
+    let cuerpoMensaje = `¡Hola CORTEX! Acabo de cotizar un letrero de Neón LED de Segunda Generación en su sitio web con los siguientes detalles:\n\n`;
+    cuerpoMensaje += `💬 *Texto del Letrero*: "${texto}"\n`;
+    cuerpoMensaje += `🎨 *Color elegido*: ${colorSeleccionadoGlobal.nombre}\n`;
+    cuerpoMensaje += `📐 *Medidas solicitadas*: ${ancho}x${alto} cm\n`;
+    cuerpoMensaje += `🔮 *Estilo de Base*: ${corte.split("(")[0].trim()}\n`;
+    cuerpoMensaje += `⚡ *Complejidad de trazo*: ${complejidad.split("(")[0].trim()}\n\n`;
+    
+    const instActiva = document.getElementById("chk-instalacion") && document.getElementById("chk-instalacion").checked;
+    const vectActiva = document.getElementById("chk-vectorizacion") && document.getElementById("chk-vectorizacion").checked;
+    const envActivo = document.getElementById("chk-envio") && document.getElementById("chk-envio").checked;
+
+    cuerpoMensaje += `🛠️ *Servicios adicionales incluidos*:\n`;
+    cuerpoMensaje += `• Instalación local: ${instActiva ? "Sí (+ $450)" : "No"}\n`;
+    cuerpoMensaje += `• Vectorización de logotipo: ${vectActiva ? "Sí (+ $200)" : "No"}\n`;
+    cuerpoMensaje += `• Envío Nacional Express: ${envActivo ? "Sí (+ $250)" : "No"}\n\n`;
+    
+    cuerpoMensaje += `💰 *Presupuesto Estimado Web*: $${precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN\n\n`;
+    cuerpoMensaje += `Me gustaría que validaran mi propuesta para proceder con la fabricación de mi proyecto.`;
+
+    const linkWA = document.getElementById("link-whatsapp-cortex");
+    if (linkWA) {
+        // Combinación perfecta: Tu link comercial de Cortex + el mensaje dinámico codificado
+        linkWA.href = `${enlaceBaseCortex}?text=${encodeURIComponent(cuerpoMensaje)}`;
+    }
+}
+
+</script>
+</body>
+</html>
