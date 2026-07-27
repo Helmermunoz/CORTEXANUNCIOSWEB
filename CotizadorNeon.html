@@ -166,21 +166,39 @@
                     </div>
                 </div>
             </div>
-            <!-- SECCIÓN 3: LOGÍSTICA Y EXTRAS -->
-            <div class="form-section-title">🔧 3. Servicios e Instalación</div>
-            
-            <label class="checkbox-label">
-                <input type="checkbox" id="chk-instalacion" data-costo="450" onchange="actualizarCotizador()">
-                <span>Agregar Instalación Profesional (Los Mochis) (+ $450)</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="chk-vectorizacion" data-costo="200" onchange="actualizarCotizador()">
-                <span>No tengo trazo editable / Apoyo en Vectorización (+ $200)</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="chk-envio" data-costo="250" onchange="actualizarCotizador()">
-                <span>Solicitar Envío Nacional Asegurado Express (+ $250)</span>
-            </label>
+ <!-- SECCIÓN 3: LOGÍSTICA Y EXTRAS -->
+<div class="form-section-title">🔧 3. Servicios e Instalación</div>
+
+<label class="checkbox-label">
+    <input type="checkbox" id="chk-instalacion" data-costo="450" onchange="actualizarCotizador()">
+    <span>Agregar Instalación Profesional (Los Mochis) (+ $450)</span>
+</label>
+<label class="checkbox-label">
+    <input type="checkbox" id="chk-vectorizacion" data-costo="200" onchange="actualizarCotizador()">
+    <span>No tengo trazo editable / Apoyo en Vectorización (+ $200)</span>
+</label>
+<label class="checkbox-label">
+    <input type="checkbox" id="chk-envio" data-costo="250" onchange="alternarFormularioDireccion()">
+    <span>Solicitar Envío Nacional Asegurado Express (+ $250)</span>
+</label>
+
+<!-- NUEVO FORMULARIO DE DIRECCIÓN OCULTO (Se muestra solo si marcan Envío) -->
+<div id="formulario-envio-postal" style="display: none; background: #0f172a; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-top: 10px; margin-bottom: 25px; gap: 12px; flex-direction: column;">
+    <h4 style="font-size: 14px; color: #38bdf8; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">📋 Datos para el Envío Postal</h4>
+    <div style="margin-bottom: 10px;">
+        <input type="text" id="envio-nombre" placeholder="Nombre completo de quien recibe" oninput="actualizarCotizador()" style="width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #f8fafc;">
+    </div>
+    <div style="margin-bottom: 10px;">
+        <input type="text" id="envio-telefono" placeholder="Teléfono de contacto" oninput="actualizarCotizador()" style="width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #f8fafc;">
+    </div>
+    <div style="margin-bottom: 10px;">
+        <input type="text" id="envio-direccion" placeholder="Dirección completa (Calle, Número, Colonia)" oninput="actualizarCotizador()" style="width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #f8fafc;">
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+        <input type="text" id="envio-cp" placeholder="C.P." oninput="actualizarCotizador()" style="width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #f8fafc;">
+        <input type="text" id="envio-ciudad" placeholder="Ciudad y Estado" oninput="actualizarCotizador()" style="width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #f8fafc;">
+    </div>
+</div>
 
             <!-- BLOQUE ECONÓMICO FINAL -->
             <div class="total-container">
@@ -199,139 +217,159 @@
 
     <!-- LÓGICA INTERACTIVA DEL COTIZADOR -->
     <script>
-        // CONFIGURACIÓN DE BASE DE DATOS DE COLORES Y SU COMPORTAMIENTO LUMÍNICO EN CSS
-        const PALETA_COLORES_NEON = [
-            { id: "calido", nombre: "Blanco Cálido", hex: "#ffdfa9", glow: "0 0 10px #ffb347, 0 0 25px #ffb347" },
-            { id: "frio", nombre: "Blanco Frío", hex: "#f1f5f9", glow: "0 0 10px #cbd5e1, 0 0 25px #cbd5e1" },
-            { id: "rosa", nombre: "Rosa Eléctrico", hex: "#ff79c6", glow: "0 0 10px #ff2a85, 0 0 25px #ff2a85" },
-            { id: "azul", nombre: "Azul Neón", hex: "#00bfff", glow: "0 0 10px #007eff, 0 0 25px #007eff" },
-            { id: "rojo", nombre: "Rojo Intenso", hex: "#ff4d4d", glow: "0 0 10px #ff0000, 0 0 25px #ff0000" },
-            { id: "verde", nombre: "Verde Ácido", hex: "#50fa7b", glow: "0 0 10px #00ff40, 0 0 25px #00ff40" },
-            { id: "morado", nombre: "Morado / UV", hex: "#bd93f9", glow: "0 0 10px #8a2be2, 0 0 25px #8a2be2" }
-        ];
+// CONFIGURACIÓN DE BASE DE DATOS DE COLORES Y SU COMPORTAMIENTO LUMÍNICO EN CSS
+const PALETA_COLORES_NEON = [
+    { id: "calido", nombre: "Blanco Cálido", hex: "#ffdfa9", glow: "0 0 10px #ffb347, 0 0 25px #ffb347" },
+    { id: "frio", nombre: "Blanco Frío", hex: "#f1f5f9", glow: "0 0 10px #cbd5e1, 0 0 25px #cbd5e1" },
+    { id: "rosa", nombre: "Rosa Eléctrico", hex: "#ff79c6", glow: "0 0 10px #ff2a85, 0 0 25px #ff2a85" },
+    { id: "azul", nombre: "Azul Neón", hex: "#00bfff", glow: "0 0 10px #007eff, 0 0 25px #007eff" },
+    { id: "rojo", nombre: "Rojo Intenso", hex: "#ff4d4d", glow: "0 0 10px #ff0000, 0 0 25px #ff0000" },
+    { id: "verde", nombre: "Verde Ácido", hex: "#50fa7b", glow: "0 0 10px #00ff40, 0 0 25px #00ff40" },
+    { id: "morado", nombre: "Morado / UV", hex: "#bd93f9", glow: "0 0 10px #8a2be2, 0 0 25px #8a2be2" }
+];
 
-        // CONSTANTE MATEMÁTICA: Costo base por centímetro cuadrado de la placa de acrílico plano
-        const COSTO_ACRILICO_POR_CM2 = 0.13;
-        let colorSeleccionadoGlobal = PALETA_COLORES_NEON[0];
+// CONSTANTE MATEMÁTICA: Costo base por centímetro cuadrado de la placa de acrílico plano
+const COSTO_ACRILICO_POR_CM2 = 0.13;
 
-        // Inicialización y renderizado de la paleta visual de colores
-        function inicializarPaletaColores() {
-            const contenedor = document.getElementById("contenedor-colores");
-            if (!contenedor) return;
-            contenedor.innerHTML = "";
+// SOLUCIÓN AL ERROR DE COLORES: Inicializamos apuntando al primer objeto (Blanco Cálido)
+let colorSeleccionadoGlobal = PALETA_COLORES_NEON[0];
 
-            PALETA_COLORES_NEON.forEach((color, index) => {
-                const boton = document.createElement("div");
-                boton.className = `color-dot ${index === 0 ? 'active' : ''}`;
-                boton.style.backgroundColor = color.hex;
-                boton.title = color.nombre;
-                
-                boton.onclick = function() {
-                    document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
-                    boton.classList.add("active");
-                    colorSeleccionadoGlobal = color;
-                    actualizarCotizador();
-                };
-                
-                contenedor.appendChild(boton);
-            });
+// Inicialización y renderizado de la paleta visual de colores
+function inicializarPaletaColores() {
+    const contenedor = document.getElementById("contenedor-colores");
+    if (!contenedor) return;
+    contenedor.innerHTML = "";
+
+    PALETA_COLORES_NEON.forEach((color, index) => {
+        const boton = document.createElement("div");
+        boton.className = `color-dot ${index === 0 ? 'active' : ''}`;
+        boton.style.backgroundColor = color.hex;
+        boton.title = color.nombre;
+        
+        boton.onclick = function() {
+            document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
+            boton.classList.add("active");
+            colorSeleccionadoGlobal = color;
+            actualizarCotizador();
+        };
+        
+        contenedor.appendChild(boton);
+    });
+}
+
+function alternarFormularioDireccion() {
+    const chkEnvio = document.getElementById("chk-envio");
+    const formulario = document.getElementById("formulario-envio-postal");
+    
+    if (chkEnvio && formulario) {
+        if (chkEnvio.checked) {
+            formulario.style.display = "flex";
+        } else {
+            formulario.style.display = "none";
+            // Limpiar campos si desmarcan el envío
+            document.getElementById("envio-nombre").value = "";
+            document.getElementById("envio-telefono").value = "";
+            document.getElementById("envio-direccion").value = "";
+            document.getElementById("envio-cp").value = "";
+            document.getElementById("envio-ciudad").value = "";
         }
+    }
+    actualizarCotizador();
+}
 
-        // Función Principal: Orquesta los cálculos matemáticos y actualizaciones en pantalla
-        function actualizarCotizador() {
-            // 1. Obtener valores de texto e inputs
-            const textoIngresado = document.getElementById("input-texto-neon") ? document.getElementById("input-texto-neon").value : "Tu Texto";
-            const ancho = parseFloat(document.getElementById("input-ancho").value) || 0;
-            const alto = parseFloat(document.getElementById("input-alto").value) || 0;
+// Función Principal: Orquesta los cálculos matemáticos y actualizaciones en pantalla
+function actualizarCotizador() {
+    const textoIngresado = document.getElementById("input-texto-neon") ? document.getElementById("input-texto-neon").value : "Neon Style";
+    const ancho = parseFloat(document.getElementById("input-ancho").value) || 0;
+    const alto = parseFloat(document.getElementById("input-alto").value) || 0;
 
-            // 2. Ejecutar la fórmula del área del soporte posterior de acrílico
-            const areaCm2 = ancho * alto;
-            const costoSoporteAcrilico = areaCm2 * COSTO_ACRILICO_POR_CM2;
+    // Ejecutar la fórmula del área del soporte posterior de acrílico
+    const areaCm2 = ancho * alto;
+    const costoSoporteAcrilico = areaCm2 * COSTO_ACRILICO_POR_CM2;
 
-            // 3. Extraer costos desde los Selectors mediante atributos de datos de HTML
-            const selectComplejidad = document.getElementById("select-complejidad");
-            let costoNeonTira = 0;
-            let textoComplejidad = "Texto Mediano";
-            if (selectComplejidad && selectComplejidad.options.length > 0) {
-                costoNeonTira = parseFloat(selectComplejidad.options[selectComplejidad.selectedIndex].getAttribute("data-costo")) || 0;
-                textoComplejidad = selectComplejidad.options[selectComplejidad.selectedIndex].text;
-            }
+    // Extraer costos desde los Selectors mediante atributos de datos de HTML
+    const selectComplejidad = document.getElementById("select-complejidad");
+    let costoNeonTira = 0;
+    let textoComplejidad = "Texto Mediano";
+    if (selectComplejidad && selectComplejidad.options.length > 0) {
+        costoNeonTira = parseFloat(selectComplejidad.options[selectComplejidad.selectedIndex].getAttribute("data-costo")) || 0;
+        textoComplejidad = selectComplejidad.options[selectComplejidad.selectedIndex].text;
+    }
 
-            const selectCorte = document.getElementById("select-corte-base");
-            let costoCorteLaser = 0;
-            let textoCorteBase = "Base Rectangular";
-            if (selectCorte && selectCorte.options.length > 0) {
-                costoCorteLaser = parseFloat(selectCorte.options[selectCorte.selectedIndex].getAttribute("data-costo")) || 0;
-                textoCorteBase = selectCorte.options[selectCorte.selectedIndex].text;
-            }
+    const selectCorte = document.getElementById("select-corte-base");
+    let costoCorteLaser = 0;
+    let textoCorteBase = "Base Rectangular";
+    if (selectCorte && selectCorte.options.length > 0) {
+        costoCorteLaser = parseFloat(selectCorte.options[selectCorte.selectedIndex].getAttribute("data-costo")) || 0;
+        textoCorteBase = selectCorte.options[selectCorte.selectedIndex].text;
+    }
 
-            // Sumatoria acumulada del presupuesto base
-            let presupuestoTotal = costoSoporteAcrilico + costoNeonTira + costoCorteLaser;
+    // Sumatoria acumulada del presupuesto base
+    let presupuestoTotal = costoSoporteAcrilico + costoNeonTira + costoCorteLaser;
 
-            // 4. Agregar cargos de servicios adicionales e instalación si están activos
-            const chkInstalacion = document.getElementById("chk-instalacion");
-            const chkVectorizacion = document.getElementById("chk-vectorizacion");
-            const chkEnvio = document.getElementById("chk-envio");
+    // Agregar cargos de servicios adicionales e instalación si están activos
+    const chkInstalacion = document.getElementById("chk-instalacion");
+    const chkVectorizacion = document.getElementById("chk-vectorizacion");
+    const chkEnvio = document.getElementById("chk-envio");
 
-            if (chkInstalacion && chkInstalacion.checked) presupuestoTotal += 450;
-            if (chkVectorizacion && chkVectorizacion.checked) presupuestoTotal += 200;
-            if (chkEnvio && chkEnvio.checked) presupuestoTotal += 250;
+    if (chkInstalacion && chkInstalacion.checked) presupuestoTotal += 450;
+    if (chkVectorizacion && chkVectorizacion.checked) presupuestoTotal += 200;
+    if (chkEnvio && chkEnvio.checked) presupuestoTotal += 250;
 
-            // 5. Actualizaciones visuales en el Mockup / Simulador
-            const mockupText = document.getElementById("mockup-text");
-            const mockupBase = document.getElementById("mockup-base");
+    // Actualizaciones visuales en el Mockup / Simulador
+    const mockupText = document.getElementById("mockup-text");
+    const mockupBase = document.getElementById("mockup-base");
 
-            if (mockupText) {
-                mockupText.innerText = textoIngresado || "Tu Texto";
-                mockupText.style.color = colorSeleccionadoGlobal.hex;
-                mockupText.style.textShadow = colorSeleccionadoGlobal.glow;
-            }
+    if (mockupText) {
+        mockupText.innerText = textoIngresado || "Tu Texto";
+        mockupText.style.color = colorSeleccionadoGlobal.hex;
+        mockupText.style.textShadow = colorSeleccionadoGlobal.glow;
+    }
 
-            if (mockupBase && selectCorte) {
-                // Modificar bordes según el tipo de corte configurado
-                if (selectCorte.value === "circular") {
-                    mockupBase.style.borderRadius = "50%";
-                    mockupBase.style.aspectRatio = "1/1";
-                } else if (selectCorte.value === "contorno") {
-                    mockupBase.style.borderRadius = "20px";
-                    mockupBase.style.aspectRatio = "16/10";
-                } else {
-                    mockupBase.style.borderRadius = "8px";
-                    mockupBase.style.aspectRatio = "16/10";
-                }
-            }
-
-            // Actualizar textos informativos en la ficha técnica del mockup con validación de existencia
-            const lblBase = document.getElementById("lbl-spec-base");
-            const lblMedidas = document.getElementById("lbl-spec-medidas");
-            const lblComplejidad = document.getElementById("lbl-spec-complejidad");
-            const lblColor = document.getElementById("lbl-spec-color");
-            const displayPrecio = document.getElementById("display-precio-final");
-
-            if (lblBase) lblBase.innerText = textoCorteBase.split("(")[0].trim();
-            if (lblMedidas) lblMedidas.innerText = `${ancho} cm × ${alto} cm`;
-            if (lblComplejidad) lblComplejidad.innerText = textoComplejidad.split("(")[0].trim();
-            if (lblColor) lblColor.innerText = colorSeleccionadoGlobal.nombre;
-
-            // Renderizar precio final formateado con separadores de miles estándar
-            if (displayPrecio) {
-                displayPrecio.innerText = `$${presupuestoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN`;
-            }
-
-            // 6. Generar y enlazar la cadena de texto para envío automático a WhatsApp
-            configurarEnlaceWhatsAppCortex(presupuestoTotal, textoIngresado, ancho, alto, textoCorteBase, textoComplejidad);
+    if (mockupBase && selectCorte) {
+        if (selectCorte.value === "circular") {
+            mockupBase.style.borderRadius = "50%";
+            mockupBase.style.aspectRatio = "1/1";
+        } else if (selectCorte.value === "contorno") {
+            mockupBase.style.borderRadius = "20px";
+            mockupBase.style.aspectRatio = "16/10";
+        } else {
+            mockupBase.style.borderRadius = "8px";
+            mockupBase.style.aspectRatio = "16/10";
         }
+    }
 
- function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
-    // Número telefónico real asociado a tu cuenta de WhatsApp de Cortex
+    // SOLUCIÓN AL ERROR TRIM: Aplicamos .trim() correctamente sobre el texto extraído
+    const textoBaseLimpio = textoCorteBase.split("(")[0].trim();
+    const textoComplejidadLimpia = textoComplejidad.split("(")[0].trim();
+
+    const lblBase = document.getElementById("lbl-spec-base");
+    const lblMedidas = document.getElementById("lbl-spec-medidas");
+    const lblComplejidad = document.getElementById("lbl-spec-complejidad");
+    const lblColor = document.getElementById("lbl-spec-color");
+    const displayPrecio = document.getElementById("display-precio-final");
+
+    if (lblBase) lblBase.innerText = textoBaseLimpio;
+    if (lblMedidas) lblMedidas.innerText = `${ancho} cm × ${alto} cm`;
+    if (lblComplejidad) lblComplejidad.innerText = textoComplejidadLimpia;
+    if (lblColor) lblColor.innerText = colorSeleccionadoGlobal.nombre;
+
+    if (displayPrecio) {
+        displayPrecio.innerText = `$${presupuestoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN`;
+    }
+
+    configurarEnlaceWhatsAppCortex(presupuestoTotal, textoIngresado, ancho, alto, textoBaseLimpio, textoComplejidadLimpia);
+}
+
+function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
     const numeroTallerCortex = "526681490233"; 
     
     let cuerpoMensaje = `¡Hola CORTEX! Acabo de cotizar un letrero de Neón LED de Segunda Generación en su sitio web con los siguientes detalles:\n\n`;
     cuerpoMensaje += `💬 *Texto del Letrero*: "${texto}"\n`;
     cuerpoMensaje += `🎨 *Color elegido*: ${colorSeleccionadoGlobal.nombre}\n`;
     cuerpoMensaje += `📐 *Medidas solicitadas*: ${ancho}x${alto} cm\n`;
-    cuerpoMensaje += `🔮 *Estilo de Base*: ${corte.split("(")[0].trim()}\n`;
-    cuerpoMensaje += `⚡ *Complejidad de trazo*: ${complejidad.split("(")[0].trim()}\n\n`;
+    cuerpoMensaje += `🔮 *Estilo de Base*: ${corte}\n`;
+    cuerpoMensaje += `⚡ *Complejidad de trazo*: ${complejidad}\n\n`;
     
     const instActiva = document.getElementById("chk-instalacion") && document.getElementById("chk-instalacion").checked;
     const vectActiva = document.getElementById("chk-vectorizacion") && document.getElementById("chk-vectorizacion").checked;
@@ -342,15 +380,37 @@
     cuerpoMensaje += `• Vectorización de logotipo: ${vectActiva ? "Sí (+ $200)" : "No"}\n`;
     cuerpoMensaje += `• Envío Nacional Express: ${envActivo ? "Sí (+ $250)" : "No"}\n\n`;
     
+    if (envActivo) {
+        const nombre = document.getElementById("envio-nombre").value || "No especificado";
+        const telefono = document.getElementById("envio-telefono").value || "No especificado";
+        const direccion = document.getElementById("envio-direccion").value || "No especificada";
+        const cp = document.getElementById("envio-cp").value || "No especificado";
+        const ciudad = document.getElementById("envio-ciudad").value || "No especificada";
+        
+        cuerpoMensaje += `📦 *DATOS DE ENVÍO POSTAL*:\n`;
+        cuerpoMensaje += `• Destinatario: ${nombre}\n`;
+        cuerpoMensaje += `• Teléfono: ${telefono}\n`;
+        cuerpoMensaje += `• Dirección: ${direccion}\n`;
+        cuerpoMensaje += `• C.P.: ${cp}\n`;
+        cuerpoMensaje += `• Ciudad/Estado: ${ciudad}\n\n`;
+    }
+    
     cuerpoMensaje += `💰 *Presupuesto Estimado Web*: $${precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN\n\n`;
     cuerpoMensaje += `Me gustaría que validaran mi propuesta para proceder con la fabricación de mi proyecto.`;
 
     const linkWA = document.getElementById("link-whatsapp-cortex");
     if (linkWA) {
-        // Enlace universal compatible con el envío dinámico de textos analíticos
         linkWA.href = `https://whatsapp.com{numeroTallerCortex}&text=${encodeURIComponent(cuerpoMensaje)}`;
     }
 }
+
+// Inicialización global
+window.onload = function() {
+    inicializarPaletaColores();
+    actualizarCotizador();
+};
+
+
 
 </script>
 </body>
