@@ -217,7 +217,7 @@
     </div>
 
     <!-- LÓGICA INTERACTIVA DEL COTIZADOR -->
-    <script>
+<script>
 // CONFIGURACIÓN DE BASE DE DATOS DE COLORES Y SU COMPORTAMIENTO LUMÍNICO EN CSS
 const PALETA_COLORES_NEON = [
     { id: "calido", nombre: "Blanco Cálido", hex: "#ffdfa9", glow: "0 0 10px #ffb347, 0 0 25px #ffb347" },
@@ -359,18 +359,40 @@ function actualizarCotizador() {
         displayPrecio.innerText = `$${presupuestoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN`;
     }
 
-    configurarEnlaceWhatsAppCortex(presupuestoTotal, textoIngresado, ancho, alto, textoBaseLimpio, textoComplejidadLimpia);
 }
 
-function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
-    const numeroTallerCortex = "526681490233"; 
+
+document.getElementById("link-whatsapp-cortex").onclick = function(e) {
+    e.preventDefault(); // Detiene recargas de página inesperadas
+
+    const numeroTallerCortex = "526681490233"; // Número de Los Mochis
     
+    // 1. Extraer los textos y dimensiones capturados al momento del clic
+    const textoIngresado = document.getElementById("input-texto-neon") ? document.getElementById("input-texto-neon").value : "Neon Style";
+    const ancho = parseFloat(document.getElementById("input-ancho").value) || 0;
+    const alto = parseFloat(document.getElementById("input-alto").value) || 0;
+    
+    // 2. Extraer las especificaciones de los selectores desplegables
+    const selectCorte = document.getElementById("select-corte-base");
+    const textoCorteBase = selectCorte ? selectCorte.options[selectCorte.selectedIndex].text : "Base Rectangular";
+    
+    const selectComplejidad = document.getElementById("select-complejidad");
+    const textoComplejidad = selectComplejidad ? selectComplejidad.options[selectComplejidad.selectedIndex].text : "Texto Mediano";
+
+    // 3. Obtener el precio final renderizado en pantalla
+    const precioDisplayText = document.getElementById("display-precio-final") ? document.getElementById("display-precio-final").innerText : "$0.00 MXN";
+
+    // 4. Limpiar los textos removiendo anotaciones secundarias entre paréntesis
+    const corteLimpio = textoCorteBase.split("(")[0].trim();
+    const complejidadLimpia = textoComplejidad.split("(")[0].trim();
+
+    // 5. Estructurar el mensaje para la orden de trabajo
     let cuerpoMensaje = `¡Hola CORTEX! Acabo de cotizar un letrero de Neón LED de Segunda Generación en su sitio web con los siguientes detalles:\n\n`;
-    cuerpoMensaje += `💬 *Texto del Letrero*: "${texto}"\n`;
+    cuerpoMensaje += `💬 *Texto del Letrero*: "${textoIngresado}"\n`;
     cuerpoMensaje += `🎨 *Color elegido*: ${colorSeleccionadoGlobal.nombre}\n`;
     cuerpoMensaje += `📐 *Medidas solicitadas*: ${ancho}x${alto} cm\n`;
-    cuerpoMensaje += `🔮 *Estilo de Base*: ${corte}\n`;
-    cuerpoMensaje += `⚡ *Complejidad de trazo*: ${complejidad}\n\n`;
+    cuerpoMensaje += `🔮 *Estilo de Base*: ${corteLimpio}\n`;
+    cuerpoMensaje += `⚡ *Complejidad de trazo*: ${complejidadLimpia}\n\n`;
     
     const instActiva = document.getElementById("chk-instalacion") && document.getElementById("chk-instalacion").checked;
     const vectActiva = document.getElementById("chk-vectorizacion") && document.getElementById("chk-vectorizacion").checked;
@@ -381,12 +403,13 @@ function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, compl
     cuerpoMensaje += `• Vectorización de logotipo: ${vectActiva ? "Sí (+ $200)" : "No"}\n`;
     cuerpoMensaje += `• Envío Nacional Express: ${envActivo ? "Sí (+ $250)" : "No"}\n\n`;
     
+    // Adicionar parámetros postales si el envío fue seleccionado por el usuario
     if (envActivo) {
-        const nombre = document.getElementById("envio-nombre").value || "No especificado";
-        const telefono = document.getElementById("envio-telefono").value || "No especificado";
-        const direccion = document.getElementById("envio-direccion").value || "No especificada";
-        const cp = document.getElementById("envio-cp").value || "No especificado";
-        const ciudad = document.getElementById("envio-ciudad").value || "No especificada";
+        const nombre = document.getElementById("envio-nombre") ? document.getElementById("envio-nombre").value : "No especificado";
+        const telefono = document.getElementById("envio-telefono") ? document.getElementById("envio-telefono").value : "No especificado";
+        const direccion = document.getElementById("envio-direccion") ? document.getElementById("envio-direccion").value : "No especificada";
+        const cp = document.getElementById("envio-cp") ? document.getElementById("envio-cp").value : "No especificado";
+        const ciudad = document.getElementById("envio-ciudad") ? document.getElementById("envio-ciudad").value : "No especificada";
         
         cuerpoMensaje += `📦 *DATOS DE ENVÍO POSTAL*:\n`;
         cuerpoMensaje += `• Destinatario: ${nombre}\n`;
@@ -396,32 +419,22 @@ function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, compl
         cuerpoMensaje += `• Ciudad/Estado: ${ciudad}\n\n`;
     }
     
-    cuerpoMensaje += `💰 *Presupuesto Estimado Web*: $${precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} MXN\n\n`;
+    cuerpoMensaje += `💰 *Presupuesto Estimado Web*: ${precioDisplayText}\n\n`;
     cuerpoMensaje += `Me gustaría que validaran mi propuesta para proceder con la fabricación de mi proyecto.`;
 
-    const linkWA = document.getElementById("link-whatsapp-cortex");
-    if (linkWA) {
-        const urlFinal = `https://whatsapp.com{numeroTallerCortex}&text=${encodeURIComponent(cuerpoMensaje)}`;
-        
-        // Asigna la URL al botón para que se pueda ver al pasar el cursor
-        linkWA.href = urlFinal;
-        
-        // SOLUCIÓN DEFINITIVA: Controla el clic mediante programación para evitar el bloqueo del navegador
-        linkWA.onclick = function(e) {
-            e.preventDefault(); // Evita que el '#' recargue la página
-            window.open(urlFinal, '_blank'); // Abre WhatsApp de forma segura y autorizada
-        };
-    }
-}
+    // ENLACE UNIVERSAL CORREGIDO: Usando la API oficial estándar limpia sin caracteres duplicados
+    const urlFinal = "https://wa.me/" + numeroTallerCortex + "?text=" + encodeURIComponent(cuerpoMensaje);
+    
+    // Forzar la redirección en la misma pestaña eliminando el about:blank
+    window.location.href = urlFinal;
+};
 
-// Inicialización global
+// Evento de inicialización global al cargar el documento en el navegador
 window.onload = function() {
     inicializarPaletaColores();
     actualizarCotizador();
 };
-
-
-
 </script>
 </body>
 </html>
+
