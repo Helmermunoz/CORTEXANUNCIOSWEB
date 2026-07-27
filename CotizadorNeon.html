@@ -322,9 +322,9 @@
             configurarEnlaceWhatsAppCortex(presupuestoTotal, textoIngresado, ancho, alto, textoCorteBase, textoComplejidad);
         }
 
-   function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
-    // Tu enlace de WhatsApp Business oficial de CORTEX
-    const enlaceBaseCortex = "https://wa.me/message/KQ5AVA3EJWZ5G1";
+ function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, complejidad) {
+    // Número telefónico real asociado a tu cuenta de WhatsApp de Cortex
+    const numeroTallerCortex = "526681490233"; 
     
     let cuerpoMensaje = `¡Hola CORTEX! Acabo de cotizar un letrero de Neón LED de Segunda Generación en su sitio web con los siguientes detalles:\n\n`;
     cuerpoMensaje += `💬 *Texto del Letrero*: "${texto}"\n`;
@@ -347,8 +347,8 @@
 
     const linkWA = document.getElementById("link-whatsapp-cortex");
     if (linkWA) {
-        // Combinación perfecta: Tu link comercial de Cortex + el mensaje dinámico codificado
-        linkWA.href = `${enlaceBaseCortex}?text=${encodeURIComponent(cuerpoMensaje)}`;
+        // Enlace universal compatible con el envío dinámico de textos analíticos
+        linkWA.href = `https://whatsapp.com{numeroTallerCortex}&text=${encodeURIComponent(cuerpoMensaje)}`;
     }
 }
 
