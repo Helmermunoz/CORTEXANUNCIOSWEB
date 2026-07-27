@@ -208,9 +208,10 @@
             </div>
 
             <!-- BOTÓN DINÁMICO DE ENVÍO -->
-            <a href="#" id="link-whatsapp-cortex" target="_blank" class="btn-send-whatsapp">
-                💬 Enviar Configuración a Taller por WhatsApp
-            </a>
+          <a href="#" id="link-whatsapp-cortex" class="btn-send-whatsapp">
+              💬 Enviar Configuración a Taller por WhatsApp
+          </a>
+
 
         </section>
     </div>
@@ -400,7 +401,16 @@ function configurarEnlaceWhatsAppCortex(precio, texto, ancho, alto, corte, compl
 
     const linkWA = document.getElementById("link-whatsapp-cortex");
     if (linkWA) {
-        linkWA.href = `https://whatsapp.com{numeroTallerCortex}&text=${encodeURIComponent(cuerpoMensaje)}`;
+        const urlFinal = `https://whatsapp.com{numeroTallerCortex}&text=${encodeURIComponent(cuerpoMensaje)}`;
+        
+        // Asigna la URL al botón para que se pueda ver al pasar el cursor
+        linkWA.href = urlFinal;
+        
+        // SOLUCIÓN DEFINITIVA: Controla el clic mediante programación para evitar el bloqueo del navegador
+        linkWA.onclick = function(e) {
+            e.preventDefault(); // Evita que el '#' recargue la página
+            window.open(urlFinal, '_blank'); // Abre WhatsApp de forma segura y autorizada
+        };
     }
 }
 
